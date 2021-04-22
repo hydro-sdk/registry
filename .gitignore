@@ -106,3 +106,5 @@ dist
 .dart_tool
 build
 .idea
+
+.DS_STORE
