@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:registry/widgets/textSearchController.dart';
 
 class SearchComponentsTextField extends StatefulWidget {
   @override
@@ -7,13 +8,14 @@ class SearchComponentsTextField extends StatefulWidget {
 }
 
 class _SearchComponentsTextFieldState extends State<SearchComponentsTextField> {
-  final FocusNode _focusNode = FocusNode();
+  final FocusNode focusNode = FocusNode();
   final TextEditingController textEditingController = TextEditingController();
+  final TextSearchController textSearchController = TextSearchController();
   late GlobalKey _key;
-  bool _isMenuOpen = false;
-  Offset? _tilePosition;
-  Size? _tileSize;
-  OverlayEntry? _overlayEntry;
+  bool isMenuOpen = false;
+  Offset? tilePosition;
+  Size? tilesize;
+  OverlayEntry? overlayEntry;
 
   @override
   void initState() {
@@ -21,8 +23,8 @@ class _SearchComponentsTextFieldState extends State<SearchComponentsTextField> {
 
     _key = LabeledGlobalKey("searchBox");
 
-    _focusNode.addListener(() {
-      if (_focusNode.hasFocus) {
+    focusNode.addListener(() {
+      if (focusNode.hasFocus) {
         openMenu();
       } else {
         closeMenu();
@@ -34,25 +36,25 @@ class _SearchComponentsTextFieldState extends State<SearchComponentsTextField> {
   void dispose() {
     super.dispose();
     closeMenu();
-    _focusNode.dispose();
+    focusNode.dispose();
   }
 
   void findBox() {
     RenderBox? renderBox = _key.currentContext?.findRenderObject() as RenderBox;
-    _tileSize = renderBox.size;
-    _tilePosition = renderBox.localToGlobal(Offset.zero);
+    tilesize = renderBox.size;
+    tilePosition = renderBox.localToGlobal(Offset.zero);
   }
 
   void closeMenu() {
-    if (_isMenuOpen) {
-      _focusNode.unfocus();
-      _overlayEntry?.remove();
-      _isMenuOpen = !_isMenuOpen;
+    if (isMenuOpen) {
+      focusNode.unfocus();
+      overlayEntry?.remove();
+      isMenuOpen = !isMenuOpen;
     }
   }
 
   void toggleMenu() {
-    if (_isMenuOpen) {
+    if (isMenuOpen) {
       closeMenu();
     } else {
       openMenu();
@@ -60,18 +62,18 @@ class _SearchComponentsTextFieldState extends State<SearchComponentsTextField> {
   }
 
   void openMenu() {
-    if (!_isMenuOpen) {
+    if (!isMenuOpen) {
       findBox();
-      _overlayEntry = _overlayEntryBuilder();
+      overlayEntry = overlayEntryBuilder();
 
-      if (_overlayEntry != null) {
-        Overlay.of(context)?.insert(_overlayEntry!);
-        _isMenuOpen = !_isMenuOpen;
+      if (overlayEntry != null) {
+        Overlay.of(context)?.insert(overlayEntry!);
+        isMenuOpen = !isMenuOpen;
       }
     }
   }
 
-  OverlayEntry _overlayEntryBuilder() => OverlayEntry(
+  OverlayEntry overlayEntryBuilder() => OverlayEntry(
         builder: (context) => Stack(
           children: [
             Positioned.fill(
@@ -83,9 +85,9 @@ class _SearchComponentsTextFieldState extends State<SearchComponentsTextField> {
               ),
             ),
             Positioned(
-              top: (_tilePosition?.dy ?? 0) + (_tileSize?.height ?? 0),
-              left: _tilePosition != null ? _tilePosition!.dx + 40 : 0,
-              width: _tileSize != null ? _tileSize!.width - 40 : 0,
+              top: (tilePosition?.dy ?? 0) + (tilesize?.height ?? 0),
+              left: tilePosition != null ? tilePosition!.dx + 40 : 0,
+              width: tilesize != null ? tilesize!.width - 40 : 0,
               child: GestureDetector(
                 behavior: HitTestBehavior.translucent,
                 onTap: () => toggleMenu(),
@@ -113,7 +115,7 @@ class _SearchComponentsTextFieldState extends State<SearchComponentsTextField> {
   @override
   Widget build(BuildContext context) {
     return TextField(
-      focusNode: _focusNode,
+      focusNode: focusNode,
       controller: textEditingController,
       key: _key,
       decoration: const InputDecoration(
