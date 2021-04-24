@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:registry/widgets/searchComponentsTextField.dart';
 import 'package:flutter_svg_provider/flutter_svg_provider.dart';
 
 void main() {
@@ -69,14 +70,7 @@ class _MyHomePageState extends State<MyHomePage> {
               right: 165,
               top: 35,
             ),
-            child: TextField(
-              decoration: InputDecoration(
-                filled: true,
-                fillColor: Colors.black12,
-                border: OutlineInputBorder(),
-                labelText: "Search Components",
-              ),
-            ),
+            child: SearchComponentsTextField()
           ),
         ],
       ),
