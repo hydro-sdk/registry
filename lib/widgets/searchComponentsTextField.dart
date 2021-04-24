@@ -8,6 +8,7 @@ class SearchComponentsTextField extends StatefulWidget {
 
 class _SearchComponentsTextFieldState extends State<SearchComponentsTextField> {
   final FocusNode _focusNode = FocusNode();
+  final TextEditingController textEditingController = TextEditingController();
   late GlobalKey _key;
   bool _isMenuOpen = false;
   Offset? _tilePosition;
@@ -44,6 +45,7 @@ class _SearchComponentsTextFieldState extends State<SearchComponentsTextField> {
 
   void closeMenu() {
     if (_isMenuOpen) {
+      _focusNode.unfocus();
       _overlayEntry?.remove();
       _isMenuOpen = !_isMenuOpen;
     }
@@ -82,8 +84,8 @@ class _SearchComponentsTextFieldState extends State<SearchComponentsTextField> {
             ),
             Positioned(
               top: (_tilePosition?.dy ?? 0) + (_tileSize?.height ?? 0),
-              left: _tilePosition?.dx,
-              width: _tileSize?.width,
+              left: _tilePosition != null ? _tilePosition!.dx + 40 : 0,
+              width: _tileSize != null ? _tileSize!.width - 40 : 0,
               child: GestureDetector(
                 behavior: HitTestBehavior.translucent,
                 onTap: () => toggleMenu(),
@@ -93,10 +95,10 @@ class _SearchComponentsTextFieldState extends State<SearchComponentsTextField> {
                     padding: EdgeInsets.zero,
                     shrinkWrap: true,
                     children: <Widget>[
-                      ListTile(
+                      const ListTile(
                         title: Text('Foo'),
                       ),
-                      ListTile(
+                      const ListTile(
                         title: Text('Bar'),
                       )
                     ],
@@ -112,8 +114,10 @@ class _SearchComponentsTextFieldState extends State<SearchComponentsTextField> {
   Widget build(BuildContext context) {
     return TextField(
       focusNode: _focusNode,
+      controller: textEditingController,
       key: _key,
-      decoration: InputDecoration(
+      decoration: const InputDecoration(
+        icon: Icon(Icons.search),
         filled: true,
         fillColor: Colors.black12,
         border: OutlineInputBorder(),

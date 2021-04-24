@@ -65,13 +65,12 @@ class _MyHomePageState extends State<MyHomePage> {
             height: MediaQuery.of(context).size.height / 2.2,
           ),
           Padding(
-            padding: EdgeInsets.only(
-              left: 165,
-              right: 165,
-              top: 35,
-            ),
-            child: SearchComponentsTextField()
-          ),
+              padding: const EdgeInsets.only(
+                left: 100,
+                right: 100,
+                top: 35,
+              ),
+              child: SearchComponentsTextField()),
         ],
       ),
     );
