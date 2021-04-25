@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hydro_sdk/registry/registryApi.dart';
 import 'package:registry/widgets/homePage.dart';
+import 'package:registry/widgets/unknownPage.dart';
 
 class App extends StatelessWidget {
   final RegistryApi registryApi;
@@ -21,6 +22,8 @@ class App extends StatelessWidget {
                       registryApi: registryApi,
                     ));
           }
+
+          return MaterialPageRoute<void>(builder: (context) => UnkownPage());
         },
       );
 }
