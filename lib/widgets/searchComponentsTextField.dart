@@ -1,16 +1,33 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:hydro_sdk/registry/registryApi.dart';
+import 'package:registry/widgets/searchComponentsResults.dart';
 import 'package:registry/widgets/textSearchController.dart';
 
 class SearchComponentsTextField extends StatefulWidget {
+  final RegistryApi registryApi;
+
+  SearchComponentsTextField({
+    required this.registryApi,
+  });
+
   @override
   _SearchComponentsTextFieldState createState() =>
-      _SearchComponentsTextFieldState();
+      _SearchComponentsTextFieldState(
+        registryApi: registryApi,
+      );
 }
 
 class _SearchComponentsTextFieldState extends State<SearchComponentsTextField> {
+  final RegistryApi registryApi;
   final FocusNode focusNode = FocusNode();
   final TextEditingController textEditingController = TextEditingController();
   final TextSearchController textSearchController = TextSearchController();
+
+  _SearchComponentsTextFieldState({
+    required this.registryApi,
+  });
+
   late GlobalKey _key;
   bool isMenuOpen = false;
   Offset? tilePosition;
@@ -30,6 +47,8 @@ class _SearchComponentsTextFieldState extends State<SearchComponentsTextField> {
         closeMenu();
       }
     });
+
+    textEditingController.addListener(updateTextSearchController);
   }
 
   @override
@@ -37,6 +56,13 @@ class _SearchComponentsTextFieldState extends State<SearchComponentsTextField> {
     super.dispose();
     closeMenu();
     focusNode.dispose();
+    textEditingController.removeListener(updateTextSearchController);
+    textEditingController.dispose();
+  }
+
+  void updateTextSearchController() {
+    textSearchController.changeSearchText(
+        searchText: textEditingController.text);
   }
 
   void findBox() {
@@ -74,41 +100,38 @@ class _SearchComponentsTextFieldState extends State<SearchComponentsTextField> {
   }
 
   OverlayEntry overlayEntryBuilder() => OverlayEntry(
-        builder: (context) => Stack(
-          children: [
-            Positioned.fill(
-              child: GestureDetector(
-                onTap: () => closeMenu(),
-                child: Container(
-                  color: Colors.transparent,
-                ),
-              ),
+        builder: (context) => MultiProvider(
+          providers: [
+            ChangeNotifierProvider.value(
+              value: textSearchController,
             ),
-            Positioned(
-              top: (tilePosition?.dy ?? 0) + (tilesize?.height ?? 0),
-              left: tilePosition != null ? tilePosition!.dx + 40 : 0,
-              width: tilesize != null ? tilesize!.width - 40 : 0,
-              child: GestureDetector(
-                behavior: HitTestBehavior.translucent,
-                onTap: () => toggleMenu(),
-                child: Material(
-                  elevation: 4.0,
-                  child: ListView(
-                    padding: EdgeInsets.zero,
-                    shrinkWrap: true,
-                    children: <Widget>[
-                      const ListTile(
-                        title: Text('Foo'),
-                      ),
-                      const ListTile(
-                        title: Text('Bar'),
-                      )
-                    ],
+          ],
+          child: Stack(
+            children: [
+              Positioned.fill(
+                child: GestureDetector(
+                  onTap: () => closeMenu(),
+                  child: Container(
+                    color: Colors.transparent,
                   ),
                 ),
               ),
-            ),
-          ],
+              Positioned(
+                top: (tilePosition?.dy ?? 0) + (tilesize?.height ?? 0),
+                left: tilePosition != null ? tilePosition!.dx + 40 : 0,
+                width: tilesize != null ? tilesize!.width - 40 : 0,
+                child: GestureDetector(
+                  behavior: HitTestBehavior.translucent,
+                  onTap: () => toggleMenu(),
+                  child: Material(
+                      elevation: 4.0,
+                      child: SearchComponentsResults(
+                        registryApi: registryApi,
+                      )),
+                ),
+              ),
+            ],
+          ),
         ),
       );
 
