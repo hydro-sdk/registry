@@ -23,7 +23,7 @@ class App extends StatelessWidget {
                     ));
           }
 
-          return MaterialPageRoute<void>(builder: (context) => UnkownPage());
+          return MaterialPageRoute<void>(builder: (context) => UnknownPage());
         },
       );
 }

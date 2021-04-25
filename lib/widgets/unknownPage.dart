@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:registry/widgets/appScaffold.dart';
 
-class UnkownPage extends StatelessWidget {
+class UnknownPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) => AppScaffold(
         child: Column(
