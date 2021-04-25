@@ -31,7 +31,11 @@ class App extends StatelessWidget {
                   settings: RouteSettings(
                     name: uri.toString(),
                   ),
-                  builder: (context) => ComponentDetailsPage());
+                  builder: (context) => ComponentDetailsPage(
+                        projectName: uri.pathSegments[1],
+                        componentName: uri.pathSegments.last,
+                        registryApi: registryApi,
+                      ));
             }
           }
 
