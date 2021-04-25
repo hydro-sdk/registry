@@ -12,23 +12,14 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => AppScaffold(
-        child: Stack(
-          children: [
-            Container(
-              color: const Color(0x75166132),
-              width: MediaQuery.of(context).size.width,
-              height: MediaQuery.of(context).size.height / 2.2,
+        child: Padding(
+            padding: const EdgeInsets.only(
+              left: 100,
+              right: 100,
+              top: 35,
             ),
-            Padding(
-                padding: const EdgeInsets.only(
-                  left: 100,
-                  right: 100,
-                  top: 35,
-                ),
-                child: SearchComponentsTextField(
-                  registryApi: registryApi,
-                )),
-          ],
-        ),
+            child: SearchComponentsTextField(
+              registryApi: registryApi,
+            )),
       );
 }

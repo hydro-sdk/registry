@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hydro_sdk/registry/registryApi.dart';
 import 'package:registry/widgets/homePage.dart';
 import 'package:registry/widgets/unknownPage.dart';
+import 'package:registry/widgets/componentDetailsPage.dart';
 
 class App extends StatelessWidget {
   final RegistryApi registryApi;
@@ -15,12 +16,23 @@ class App extends StatelessWidget {
         theme: ThemeData(
           primaryColor: Colors.black,
         ),
+        initialRoute: "/",
         onGenerateRoute: (settings) {
           if (settings.name == "/") {
             return MaterialPageRoute<void>(
                 builder: (context) => HomePage(
                       registryApi: registryApi,
                     ));
+          } else {
+            final uri = Uri.parse(settings.name ?? "");
+            if (uri.pathSegments.length == 3 &&
+                uri.pathSegments.first == "component") {
+              return MaterialPageRoute<void>(
+                  settings: RouteSettings(
+                    name: uri.toString(),
+                  ),
+                  builder: (context) => ComponentDetailsPage());
+            }
           }
 
           return MaterialPageRoute<void>(builder: (context) => UnknownPage());

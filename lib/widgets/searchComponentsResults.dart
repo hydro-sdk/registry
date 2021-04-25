@@ -5,6 +5,7 @@ import 'package:hydro_sdk/registry/dto/componentSearchDto.dart';
 import 'package:hydro_sdk/registry/registryApi.dart';
 import 'package:provider/provider.dart';
 import 'package:registry/widgets/textSearchController.dart';
+import 'package:registry/util/pushComponentDetails.dart';
 
 class SearchComponentsResults extends StatelessWidget {
   final RegistryApi registryApi;
@@ -143,10 +144,17 @@ class __SearchComponentsResultsInnerState
               ? ListView(
                   shrinkWrap: true,
                   children: searchResults
-                          ?.map((x) => ListTile(
-                                title: Text(x.name),
-                                subtitle: Text(x.description),
-                              ))
+                          ?.map(
+                            (x) => ListTile(
+                              title: Text(x.name),
+                              subtitle: Text(x.description),
+                              onTap: () => pushComponentDetails(
+                                context: context,
+                                componentName: x.name,
+                                projectName: x.projectName,
+                              ),
+                            ),
+                          )
                           .toList() ??
                       [],
                 )
