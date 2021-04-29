@@ -63,10 +63,13 @@ class _ComponentDetailsPageState extends State<ComponentDetailsPage> {
       child: componentReadDto == null || (releaseChannelDtos?.isEmpty ?? true)
           ? const Center(child: CircularProgressIndicator())
           : Padding(
-              padding: const EdgeInsets.all(30),
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
+              padding: const EdgeInsets.only(
+                left: 30,
+                right: 30,
+              ),
+              child: ListView(
                 children: [
+                  const SizedBox(height: 30),
                   Row(
                     children: [
                       Expanded(
@@ -87,6 +90,7 @@ class _ComponentDetailsPageState extends State<ComponentDetailsPage> {
                       releaseChannelReadDto: releaseChannelDtos!.first,
                     ),
                   ),
+                  const SizedBox(height: 30),
                 ],
               ),
             ),

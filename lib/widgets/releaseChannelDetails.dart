@@ -42,7 +42,7 @@ class _ReleaseChannelDetailsState extends State<ReleaseChannelDetails> {
   Widget build(BuildContext context) {
     return packageReadDto == null
         ? const Center(child: CircularProgressIndicator())
-        : Markdown(
+        : MarkdownBody(
           shrinkWrap: true,
           selectable: true,
           onTapLink: (text, href, title) {
