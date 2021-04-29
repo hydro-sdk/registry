@@ -71,6 +71,7 @@ class _ComponentDetailsPageState extends State<ComponentDetailsPage> {
                 right: 30,
               ),
               child: ListView(
+                shrinkWrap: true,
                 children: [
                   const SizedBox(height: 30),
                   Row(
@@ -116,6 +117,9 @@ class _ComponentDetailsPageState extends State<ComponentDetailsPage> {
                   ReleaseChannelDetails(
                     registryApi: widget.registryApi,
                     releaseChannelReadDto: selectedReleaseChannel!,
+                    projectName: widget.projectName,
+                    componentName: widget.componentName,
+                    releaseChannelName: selectedReleaseChannel!.name,
                   ),
                   const SizedBox(height: 30),
                 ],

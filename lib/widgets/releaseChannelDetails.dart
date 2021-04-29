@@ -5,14 +5,21 @@ import 'package:hydro_sdk/registry/dto/releaseChannelReadDto.dart';
 import 'package:hydro_sdk/registry/registryApi.dart';
 import 'package:registry/widgets/appScaffold.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
+import 'package:registry/widgets/includePackageSnippet.dart';
 
 class ReleaseChannelDetails extends StatefulWidget {
   final RegistryApi registryApi;
   final ReleaseChannelReadDto releaseChannelReadDto;
+  final String projectName;
+  final String componentName;
+  final String releaseChannelName;
 
   ReleaseChannelDetails({
     required this.registryApi,
     required this.releaseChannelReadDto,
+    required this.projectName,
+    required this.componentName,
+    required this.releaseChannelName,
   });
 
   @override
@@ -52,6 +59,17 @@ class _ReleaseChannelDetailsState extends State<ReleaseChannelDetails> {
                   ),
                 ),
               ],
+            ),
+            Card(
+              child: Padding(
+                padding: const EdgeInsets.all(10),
+                child: IncludePackageSnippet(
+                  packageReadDto: packageReadDto!,
+                  projectName: widget.projectName,
+                  componentName: widget.componentName,
+                  releaseChannelName: widget.releaseChannelName,
+                ),
+              ),
             ),
             Card(
               child: Padding(
