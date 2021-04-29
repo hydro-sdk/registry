@@ -4,6 +4,7 @@ import 'package:hydro_sdk/registry/dto/packageReadDto.dart';
 import 'package:hydro_sdk/registry/dto/releaseChannelReadDto.dart';
 import 'package:hydro_sdk/registry/registryApi.dart';
 import 'package:registry/widgets/appScaffold.dart';
+import 'package:registry/widgets/releaseChannelDetails.dart';
 
 class ComponentDetailsPage extends StatefulWidget {
   final RegistryApi registryApi;
@@ -59,17 +60,31 @@ class _ComponentDetailsPageState extends State<ComponentDetailsPage> {
   @override
   Widget build(BuildContext context) {
     return AppScaffold(
-      child: componentReadDto == null
+      child: componentReadDto == null || (releaseChannelDtos?.isEmpty ?? true)
           ? const Center(child: CircularProgressIndicator())
           : Padding(
               padding: const EdgeInsets.all(30),
               child: Column(
+                mainAxisSize: MainAxisSize.min,
                 children: [
-                  Text(
-                    componentReadDto?.name ?? "",
-                    style: const TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 24,
+                  Row(
+                    children: [
+                      Expanded(
+                        child: Text(
+                          componentReadDto?.name ?? "",
+                          overflow: TextOverflow.ellipsis,
+                          style: const TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 24,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                  Card(
+                    child: ReleaseChannelDetails(
+                      registryApi: widget.registryApi,
+                      releaseChannelReadDto: releaseChannelDtos!.first,
                     ),
                   ),
                 ],
