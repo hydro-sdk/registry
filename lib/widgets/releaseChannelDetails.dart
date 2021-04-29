@@ -60,16 +60,20 @@ class _ReleaseChannelDetailsState extends State<ReleaseChannelDetails> {
                 ),
               ],
             ),
-            Card(
-              child: Padding(
-                padding: const EdgeInsets.all(10),
-                child: IncludePackageSnippet(
-                  packageReadDto: packageReadDto!,
-                  projectName: widget.projectName,
-                  componentName: widget.componentName,
-                  releaseChannelName: widget.releaseChannelName,
+            Row(
+              children: [
+                Card(
+                  child: Padding(
+                    padding: const EdgeInsets.all(10),
+                    child: IncludePackageSnippet(
+                      packageReadDto: packageReadDto!,
+                      projectName: widget.projectName,
+                      componentName: widget.componentName,
+                      releaseChannelName: widget.releaseChannelName,
+                    ),
+                  ),
                 ),
-              ),
+              ],
             ),
             Card(
               child: Padding(
