@@ -25,6 +25,7 @@ class _ComponentDetailsPageState extends State<ComponentDetailsPage> {
   ComponentReadDto? componentReadDto;
   List<ReleaseChannelReadDto>? releaseChannelDtos;
   List<PackageReadDto>? packageReadDtos;
+  ReleaseChannelReadDto? selectedReleaseChannel;
 
   @override
   void initState() {
@@ -48,6 +49,7 @@ class _ComponentDetailsPageState extends State<ComponentDetailsPage> {
         if (mounted) {
           setState(() {
             releaseChannelDtos = value;
+            selectedReleaseChannel = value.first;
           });
         }
       });
@@ -59,6 +61,7 @@ class _ComponentDetailsPageState extends State<ComponentDetailsPage> {
 
   @override
   Widget build(BuildContext context) {
+    print(releaseChannelDtos);
     return AppScaffold(
       child: componentReadDto == null || (releaseChannelDtos?.isEmpty ?? true)
           ? const Center(child: CircularProgressIndicator())
@@ -84,11 +87,35 @@ class _ComponentDetailsPageState extends State<ComponentDetailsPage> {
                       ),
                     ],
                   ),
-                  Card(
-                    child: ReleaseChannelDetails(
-                      registryApi: widget.registryApi,
-                      releaseChannelReadDto: releaseChannelDtos!.first,
-                    ),
+                  Row(
+                    children: [
+                      const Text(
+                        "Channel:",
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      DropdownButton<ReleaseChannelReadDto>(
+                        items: releaseChannelDtos!
+                            .map((x) => DropdownMenuItem<ReleaseChannelReadDto>(
+                                  value: x,
+                                  child: Text(x.name),
+                                ))
+                            .toList(),
+                        value: selectedReleaseChannel,
+                        onChanged: (value) {
+                          if (mounted) {
+                            setState(() {
+                              selectedReleaseChannel = value;
+                            });
+                          }
+                        },
+                      ),
+                    ],
+                  ),
+                  ReleaseChannelDetails(
+                    registryApi: widget.registryApi,
+                    releaseChannelReadDto: selectedReleaseChannel!,
                   ),
                   const SizedBox(height: 30),
                 ],

@@ -42,12 +42,28 @@ class _ReleaseChannelDetailsState extends State<ReleaseChannelDetails> {
   Widget build(BuildContext context) {
     return packageReadDto == null
         ? const Center(child: CircularProgressIndicator())
-        : MarkdownBody(
-          shrinkWrap: true,
-          selectable: true,
-          onTapLink: (text, href, title) {
-            print(href);
-          },
-          data: packageReadDto?.readmeMd ?? "");
+        : Card(
+            child: Column(
+              children: [
+                Row(
+                  children: [
+                    Text(
+                      "Version: " + packageReadDto!.displayVersion,
+                      style: const TextStyle(
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ],
+                ),
+                MarkdownBody(
+                    shrinkWrap: true,
+                    selectable: true,
+                    onTapLink: (text, href, title) {
+                      print(href);
+                    },
+                    data: packageReadDto?.readmeMd ?? ""),
+              ],
+            ),
+          );
   }
 }
