@@ -49,44 +49,46 @@ class _ReleaseChannelDetailsState extends State<ReleaseChannelDetails> {
   Widget build(BuildContext context) {
     return packageReadDto == null
         ? const Center(child: CircularProgressIndicator())
-        : Column(children: [
-            Row(
-              children: [
-                Text(
-                  "Version: " + packageReadDto!.displayVersion,
-                  style: const TextStyle(
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-              ],
-            ),
-            Row(
-              children: [
-                Card(
-                  child: Padding(
-                    padding: const EdgeInsets.all(10),
-                    child: IncludePackageSnippet(
-                      packageReadDto: packageReadDto!,
-                      projectName: widget.projectName,
-                      componentName: widget.componentName,
-                      releaseChannelName: widget.releaseChannelName,
+        : Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Row(
+                mainAxisSize: MainAxisSize.min,
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  Text(
+                    "Version: " + packageReadDto!.displayVersion,
+                    style: const TextStyle(
+                      fontWeight: FontWeight.bold,
                     ),
                   ),
-                ),
-              ],
-            ),
-            Card(
-              child: Padding(
-                padding: const EdgeInsets.all(10),
-                child: MarkdownBody(
-                    shrinkWrap: true,
-                    selectable: true,
-                    onTapLink: (text, href, title) {
-                      print(href);
-                    },
-                    data: packageReadDto?.readmeMd ?? ""),
+                ],
               ),
-            ),
-          ]);
+              Row(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  SizedBox(
+                    width: MediaQuery.of(context).size.width / 2,
+                    child: MarkdownBody(
+                      shrinkWrap: true,
+                      selectable: true,
+                      onTapLink: (text, href, title) {
+                        print(href);
+                      },
+                      data: packageReadDto?.readmeMd ?? "",
+                    ),
+                  ),
+                  IncludePackageSnippet(
+                    packageReadDto: packageReadDto!,
+                    projectName: widget.projectName,
+                    componentName: widget.componentName,
+                    releaseChannelName: widget.releaseChannelName,
+                  ),
+                ],
+              ),
+            ],
+          );
   }
 }

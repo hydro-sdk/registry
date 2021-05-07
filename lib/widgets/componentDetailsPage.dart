@@ -61,7 +61,6 @@ class _ComponentDetailsPageState extends State<ComponentDetailsPage> {
 
   @override
   Widget build(BuildContext context) {
-    print(releaseChannelDtos);
     return AppScaffold(
       child: componentReadDto == null || (releaseChannelDtos?.isEmpty ?? true)
           ? const Center(child: CircularProgressIndicator())
@@ -75,6 +74,7 @@ class _ComponentDetailsPageState extends State<ComponentDetailsPage> {
                 children: [
                   const SizedBox(height: 30),
                   Row(
+                    mainAxisSize: MainAxisSize.min,
                     children: [
                       Expanded(
                         child: Text(

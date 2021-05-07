@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 
 class AppScaffold extends StatelessWidget {
   final Widget child;
+  final bool showBackgroundLogoColor;
 
   AppScaffold({
     required this.child,
+    this.showBackgroundLogoColor = false,
   });
 
   @override
@@ -38,11 +40,13 @@ class AppScaffold extends StatelessWidget {
       ),
       body: Stack(
         children: [
-          Container(
-            color: const Color(0x75166132),
-            width: MediaQuery.of(context).size.width,
-            height: MediaQuery.of(context).size.height / 2.2,
-          ),
+          showBackgroundLogoColor
+              ? Container(
+                  color: const Color(0x75166132),
+                  width: MediaQuery.of(context).size.width,
+                  height: MediaQuery.of(context).size.height / 2.2,
+                )
+              : const SizedBox(),
           child,
         ],
       ),
