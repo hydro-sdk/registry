@@ -53,6 +53,10 @@ class _AppScaffoldState extends State<AppScaffold> {
             Row(
               children: [
                 TextButton(
+                  child: const Text("Signup"),
+                  onPressed: () async {},
+                ),
+                TextButton(
                   child: const Text("Login"),
                   onPressed: () async {},
                 ),
