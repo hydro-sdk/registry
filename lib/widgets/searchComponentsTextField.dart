@@ -127,6 +127,7 @@ class _SearchComponentsTextFieldState extends State<SearchComponentsTextField> {
                       elevation: 4.0,
                       child: SearchComponentsResults(
                         registryApi: registryApi,
+                        onChildTap: () => closeMenu(),
                       )),
                 ),
               ),

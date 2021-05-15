@@ -9,9 +9,11 @@ import 'package:registry/util/pushComponentDetails.dart';
 
 class SearchComponentsResults extends StatelessWidget {
   final RegistryApi registryApi;
+  final void Function() onChildTap;
 
   SearchComponentsResults({
     required this.registryApi,
+    required this.onChildTap,
   });
 
   @override
@@ -21,6 +23,7 @@ class SearchComponentsResults extends StatelessWidget {
     return _SearchComponentsResultsInner(
       textSearchController: textSearchController,
       registryApi: registryApi,
+      onChildTap: onChildTap,
     );
   }
 }
@@ -28,16 +31,19 @@ class SearchComponentsResults extends StatelessWidget {
 class _SearchComponentsResultsInner extends StatefulWidget {
   final TextSearchController textSearchController;
   final RegistryApi registryApi;
+  final void Function() onChildTap;
 
   _SearchComponentsResultsInner({
     required this.textSearchController,
     required this.registryApi,
+    required this.onChildTap,
   });
   @override
   __SearchComponentsResultsInnerState createState() =>
       __SearchComponentsResultsInnerState(
         textSearchController: textSearchController,
         registryApi: registryApi,
+        onChildTap: onChildTap,
       );
 }
 
@@ -45,10 +51,12 @@ class __SearchComponentsResultsInnerState
     extends State<_SearchComponentsResultsInner> {
   final TextSearchController textSearchController;
   final RegistryApi registryApi;
+  final void Function() onChildTap;
 
   __SearchComponentsResultsInnerState({
     required this.textSearchController,
     required this.registryApi,
+    required this.onChildTap,
   });
 
   StreamSubscription<List<ComponentSearchDto>>? searchRequest;
@@ -146,14 +154,16 @@ class __SearchComponentsResultsInnerState
                   children: searchResults
                           ?.map(
                             (x) => ListTile(
-                              title: Text(x.name),
-                              subtitle: Text(x.description),
-                              onTap: () => pushComponentDetails(
-                                context: context,
-                                componentName: x.name,
-                                projectName: x.projectName,
-                              ),
-                            ),
+                                title: Text(x.name),
+                                subtitle: Text(x.description),
+                                onTap: () {
+                                  onChildTap();
+                                  pushComponentDetails(
+                                    context: context,
+                                    componentName: x.name,
+                                    projectName: x.projectName,
+                                  );
+                                }),
                           )
                           .toList() ??
                       [],
