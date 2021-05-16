@@ -31,6 +31,8 @@ dependencies:
   flutter_markdown:
   markdown:
   clipboard:
+  shared_preferences: 2.0.5
+  shared_preferences_web:
   hydro_sdk:
     path: "../hydro-sdk"
 

@@ -109,3 +109,5 @@ build
 
 .DS_STORE
 .packages
+.flutter-plugins
+.flutter-plugins-dependencies

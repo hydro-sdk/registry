@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:registry/util/userController.dart';
 
 class AppScaffold extends StatefulWidget {
   final Widget child;
@@ -21,6 +23,7 @@ class _AppScaffoldState extends State<AppScaffold> {
 
   @override
   Widget build(BuildContext context) {
+    final userController = Provider.of<UserController>(context);
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
@@ -51,17 +54,27 @@ class _AppScaffoldState extends State<AppScaffold> {
               ],
             ),
             Row(
-              children: [
-                TextButton(
-                  child: const Text("Signup"),
-                  onPressed: () => Navigator.pushNamed(context, "/signup"),
-                ),
-                TextButton(
-                  child: const Text("Login"),
-                  onPressed: () async {},
-                ),
-                const SizedBox(width: 10),
-              ],
+              children: userController.session == null
+                  ? [
+                      TextButton(
+                        child: const Text("Signup"),
+                        onPressed: () =>
+                            Navigator.pushNamed(context, "/signup"),
+                      ),
+                      TextButton(
+                        child: const Text("Login"),
+                        onPressed: () async {},
+                      ),
+                      const SizedBox(width: 10),
+                    ]
+                  : [
+                      TextButton(
+                        child: Text(
+                            userController.session!.authenticatedUser.username),
+                        onPressed: () async {},
+                      ),
+                      const SizedBox(width: 10),
+                    ],
             ),
           ],
         ),
