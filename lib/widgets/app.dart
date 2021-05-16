@@ -34,6 +34,9 @@ class App extends StatelessWidget {
             );
           } else if (settings.name == "/signup") {
             return MaterialPageRoute<void>(
+              settings: RouteSettings(
+                name: settings.name,
+              ),
               builder: (context) => changeNotifier(
                 userController: userController,
                 child: SignupPage(

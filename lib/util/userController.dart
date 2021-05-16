@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:hydro_sdk/registry/registryApi.dart';
+import 'package:hydro_sdk/registry/dto/sessionDto.dart';
 
 class UserController extends ChangeNotifier {
-  String? _token;
+  SessionDto? _sessionDto;
 
   UserController();
 
-  void setToken(String token) {
-    _token = token;
+  void setSession(SessionDto sessionDto) {
+    _sessionDto = sessionDto;
+    notifyListeners();
   }
 }

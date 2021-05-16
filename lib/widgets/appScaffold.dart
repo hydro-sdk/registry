@@ -54,7 +54,7 @@ class _AppScaffoldState extends State<AppScaffold> {
               children: [
                 TextButton(
                   child: const Text("Signup"),
-                  onPressed: () async {},
+                  onPressed: () => Navigator.pushNamed(context, "/signup"),
                 ),
                 TextButton(
                   child: const Text("Login"),
