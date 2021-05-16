@@ -4,6 +4,7 @@ import 'package:registry/widgets/homePage.dart';
 import 'package:registry/widgets/unknownPage.dart';
 import 'package:registry/widgets/componentDetailsPage.dart';
 import 'package:registry/widgets/signupPage.dart';
+import 'package:registry/widgets/projectsPage.dart';
 import 'package:registry/widgets/changeNotifier.dart';
 import 'package:registry/util/userController.dart';
 
@@ -44,7 +45,22 @@ class App extends StatelessWidget {
                 ),
               ),
             );
-          } else {
+          } 
+          else if (settings.name == "/projects") {
+            return MaterialPageRoute<void>(
+              settings: RouteSettings(
+                name: settings.name,
+              ),
+              builder: (context) => changeNotifier(
+                userController: userController,
+                child: ProjectsPage(
+                  registryApi: registryApi,
+                  userController: userController,
+                ),
+              ),
+            );
+          } 
+          else {
             final uri = Uri.parse(settings.name ?? "");
             if (uri.pathSegments.length == 3 &&
                 uri.pathSegments.first == "component") {

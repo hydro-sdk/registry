@@ -69,6 +69,11 @@ class _AppScaffoldState extends State<AppScaffold> {
                     ]
                   : [
                       TextButton(
+                        child: const Text("Projects"),
+                        onPressed: () =>
+                            Navigator.pushNamed(context, "/projects"),
+                      ),
+                      TextButton(
                         child: Text(
                             userController.session!.authenticatedUser.username),
                         onPressed: () async {},
