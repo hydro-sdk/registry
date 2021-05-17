@@ -44,32 +44,71 @@ class _ProjectsPageState extends State<ProjectsPage> {
   @override
   Widget build(BuildContext context) {
     return AppScaffold(
-        child: Column(
-      children: [
-        Row(
-          children: [
-            Text(
-              "${widget.userController.session!.authenticatedUser.username}'s Projects",
-              style: const TextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize: 38,
-              ),
-            )
-          ],
+      child: Padding(
+        padding: const EdgeInsets.only(
+          left: 20,
         ),
-        ...(projects?.isNotEmpty ?? false)
-            ? projects!.map((e) => Text(e.name)).toList().cast<Widget>()
-            : (projects?.isEmpty ?? false)
-                ? [
-                    const Text(
-                      "No projects",
-                      style: TextStyle(
-                        fontSize: 28,
+        child: Column(
+          children: [
+            Row(
+              children: [
+                Text(
+                  "${widget.userController.session!.authenticatedUser.username}'s Projects",
+                  style: const TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 38,
+                  ),
+                ),
+              ],
+            ),
+            const SizedBox(height: 25),
+            ...(projects?.isNotEmpty ?? false)
+                ? projects!
+                    .map(
+                      (e) => Column(
+                        children: [
+                          Row(
+                            children: [
+                              SizedBox(
+                                width: MediaQuery.of(context).size.width / 4,
+                                height: 125,
+                                child: ListTile(
+                                  title: Text(
+                                    e.name,
+                                    style: const TextStyle(
+                                      fontSize: 28,
+                                    ),
+                                  ),
+                                  subtitle: Text(
+                                    e.description,
+                                    style: const TextStyle(
+                                      fontSize: 18,
+                                    ),
+                                  ),
+                                  onTap: () {},
+                                  tileColor: Colors.grey.shade200,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ],
                       ),
                     )
-                  ]
-                : [const CircularProgressIndicator()],
-      ],
-    ));
+                    .toList()
+                    .cast<Widget>()
+                : (projects?.isEmpty ?? false)
+                    ? [
+                        const Text(
+                          "No projects",
+                          style: TextStyle(
+                            fontSize: 28,
+                          ),
+                        )
+                      ]
+                    : [const CircularProgressIndicator()],
+          ],
+        ),
+      ),
+    );
   }
 }
