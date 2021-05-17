@@ -45,8 +45,7 @@ class App extends StatelessWidget {
                 ),
               ),
             );
-          } 
-          else if (settings.name == "/projects") {
+          } else if (settings.name == "/projects") {
             return MaterialPageRoute<void>(
               settings: RouteSettings(
                 name: settings.name,
@@ -59,8 +58,7 @@ class App extends StatelessWidget {
                 ),
               ),
             );
-          } 
-          else {
+          } else {
             final uri = Uri.parse(settings.name ?? "");
             if (uri.pathSegments.length == 3 &&
                 uri.pathSegments.first == "component") {
