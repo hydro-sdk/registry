@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:hydro_sdk/registry/registryApi.dart';
 import 'package:hydro_sdk/registry/dto/projectEntity.dart';
+import 'package:registry/util/pushProjectDetails.dart';
 import 'package:registry/widgets/appScaffold.dart';
 import 'package:registry/util/userController.dart';
 
@@ -85,7 +86,10 @@ class _ProjectsPageState extends State<ProjectsPage> {
                                       fontSize: 18,
                                     ),
                                   ),
-                                  onTap: () {},
+                                  onTap: () => pushProjectDetails(
+                                    projectId: e.id,
+                                    context: context,
+                                  ),
                                   tileColor: Colors.grey.shade200,
                                 ),
                               ),

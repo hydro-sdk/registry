@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hydro_sdk/registry/registryApi.dart';
 import 'package:registry/widgets/homePage.dart';
+import 'package:registry/widgets/projectDetailsPage.dart';
 import 'package:registry/widgets/unknownPage.dart';
 import 'package:registry/widgets/componentDetailsPage.dart';
 import 'package:registry/widgets/signupPage.dart';
@@ -71,6 +72,20 @@ class App extends StatelessWidget {
                   child: ComponentDetailsPage(
                     projectName: uri.pathSegments[1],
                     componentName: uri.pathSegments.last,
+                    registryApi: registryApi,
+                  ),
+                ),
+              );
+            } else if (uri.pathSegments.length == 2 &&
+                uri.pathSegments.first == "project") {
+              return MaterialPageRoute<void>(
+                settings: RouteSettings(
+                  name: uri.toString(),
+                ),
+                builder: (context) => changeNotifier(
+                  userController: userController,
+                  child: ProjectDetailsPage(
+                    projectId: uri.pathSegments[1],
                     registryApi: registryApi,
                   ),
                 ),
