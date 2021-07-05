@@ -54,10 +54,10 @@ class _SignupPageState extends State<SignupPage> {
           ),
         );
 
-        if (loginResponse.authenticatedUser != null) {
+        if (loginResponse!.authenticatedUser != null) {
           final userController =
               Provider.of<UserController>(context, listen: false);
-          userController.setSession(loginResponse);
+          await userController.setSession(loginResponse);
           await Navigator.of(context).maybePop();
         }
       }

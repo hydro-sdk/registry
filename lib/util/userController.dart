@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:firebase_auth/firebase_auth.dart';
 
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -18,6 +19,10 @@ class UserController extends ChangeNotifier {
     if (storedSession?.isNotEmpty ?? false) {
       _sessionDto = SessionDto.fromJson(jsonDecode(storedSession!));
     }
+
+    FirebaseAuth.instance.authStateChanges().listen((event) {
+      print(event);
+    });
   }
 
   Future<void> setSession(SessionDto sessionDto) async {

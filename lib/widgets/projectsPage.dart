@@ -27,7 +27,7 @@ class _ProjectsPageState extends State<ProjectsPage> {
   @override
   void initState() {
     widget.registryApi
-        .canUpdateProjects(sessionDto: widget.userController.session)
+        .canUpdateProjects(sessionDto: widget.userController.session!)
         .then((value) {
       print(value);
       if (mounted) {

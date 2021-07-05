@@ -40,6 +40,28 @@
       });
     }
   </script>
+  
+  <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-analytics.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-firestore.js"></script>
+
+  <script>
+    var firebaseConfig = {
+    apiKey: "AIzaSyCpwINU5tsSZ_QRzcHRAuhj-QsiCPTEiSY",
+    authDomain: "hydro-reservoir-staging.firebaseapp.com",
+    projectId: "hydro-reservoir-staging",
+    storageBucket: "hydro-reservoir-staging.appspot.com",
+    messagingSenderId: "314512543852",
+    appId: "1:314512543852:web:99fdf42edf468fccb10849",
+    measurementId: "G-YFTHEJGBPM"
+  };
+
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+    firebase.analytics();
+  </script>
+
   <script src="main.dart.js" type="application/javascript"></script>
 </body>
 </html>

@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:registry/util/userController.dart';
@@ -57,10 +58,11 @@ class _AppScaffoldState extends State<AppScaffold> {
               children: userController.session == null
                   ? [
                       TextButton(
-                        child: const Text("Signup"),
-                        onPressed: () =>
-                            Navigator.pushNamed(context, "/signup"),
-                      ),
+                          child: const Text("Signup"),
+                          onPressed: () async {
+                            await FirebaseAuth.instance
+                                .signInWithPopup(GithubAuthProvider());
+                          }),
                       TextButton(
                         child: const Text("Login"),
                         onPressed: () async {},

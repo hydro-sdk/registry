@@ -59,7 +59,7 @@ class __SearchComponentsResultsInnerState
     required this.onChildTap,
   });
 
-  StreamSubscription<List<ComponentSearchDto>>? searchRequest;
+  StreamSubscription<List<ComponentSearchDto>?>? searchRequest;
   List<ComponentSearchDto>? searchResults;
   bool searchInProgress = false;
   Timer? searchTimer;
@@ -119,7 +119,7 @@ class __SearchComponentsResultsInnerState
         if (textSearchController.searchText?.isNotEmpty ?? false) {
           searchRequest = registryApi
               .searchComponents(
-                searchTerm: textSearchController.searchText,
+                searchTerm: textSearchController.searchText!,
               )
               .asStream()
               .listen((
@@ -127,7 +127,7 @@ class __SearchComponentsResultsInnerState
           ) {
             if (mounted) {
               setState(() {
-                searchResults = event.isNotEmpty ? event : null;
+                searchResults = event!.isNotEmpty ? event : null;
                 searchInProgress = false;
               });
             }
