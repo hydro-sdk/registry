@@ -1,35 +1,37 @@
-import 'dart:convert';
 import 'package:firebase_auth/firebase_auth.dart';
 
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:hydro_sdk/registry/registryApi.dart';
 import 'package:hydro_sdk/registry/dto/sessionDto.dart';
 
 class UserController extends ChangeNotifier {
-  SessionDto? _sessionDto;
-  SessionDto? get session => _sessionDto;
+  final RegistryApi registryApi;
 
-  UserController();
+  UserController({
+    required this.registryApi,
+  });
+
+  User? _user;
+
+  User? get user => _user;
 
   Future<void> init() async {
-    final prefs = await SharedPreferences.getInstance();
-    final storedSession = prefs.getString("session");
-
-    if (storedSession?.isNotEmpty ?? false) {
-      _sessionDto = SessionDto.fromJson(jsonDecode(storedSession!));
-    }
-
-    FirebaseAuth.instance.authStateChanges().listen((event) {
+    FirebaseAuth.instance.authStateChanges().listen((event) async {
       print(event);
+      _user = event;
+
+      if (_user != null) {
+        final provisionResponse = await registryApi.provisionUser(
+          sessionDto: SessionDto(authToken: await _user?.getIdToken() ?? ""),
+        );
+
+        if (!provisionResponse) {
+          print("Failed to provision ${user?.displayName}");
+        }
+      }
+      notifyListeners();
     });
   }
 
-  Future<void> setSession(SessionDto sessionDto) async {
-    _sessionDto = sessionDto;
-
-    final prefs = await SharedPreferences.getInstance();
-    await prefs.setString("session", jsonEncode(sessionDto.toJson()));
-    notifyListeners();
-  }
+  Future<void> setSession(SessionDto sessionDto) async {}
 }

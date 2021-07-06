@@ -55,7 +55,7 @@ class _AppScaffoldState extends State<AppScaffold> {
               ],
             ),
             Row(
-              children: userController.session == null
+              children: userController.user == null
                   ? [
                       TextButton(
                           child: const Text("Signup"),
@@ -76,8 +76,7 @@ class _AppScaffoldState extends State<AppScaffold> {
                             Navigator.pushNamed(context, "/projects"),
                       ),
                       TextButton(
-                        child: Text(
-                            userController.session!.authenticatedUser.username),
+                        child: Text(userController.user?.displayName ?? ""),
                         onPressed: () async {},
                       ),
                       const SizedBox(width: 10),

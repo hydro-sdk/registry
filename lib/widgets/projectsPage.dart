@@ -1,49 +1,27 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:provider/provider.dart';
 import 'package:hydro_sdk/registry/registryApi.dart';
-import 'package:hydro_sdk/registry/dto/projectEntity.dart';
+import 'package:registry/hooks/useCurrentUserProjects.dart';
 import 'package:registry/util/pushProjectDetails.dart';
 import 'package:registry/widgets/appScaffold.dart';
 import 'package:registry/util/userController.dart';
 
-class ProjectsPage extends StatefulWidget {
+class ProjectsPage extends HookWidget {
   final RegistryApi registryApi;
-  final UserController userController;
 
-  ProjectsPage({
+  const ProjectsPage({
     required this.registryApi,
-    required this.userController,
   });
 
   @override
-  _ProjectsPageState createState() => _ProjectsPageState();
-}
-
-class _ProjectsPageState extends State<ProjectsPage> {
-  _ProjectsPageState();
-
-  List<ProjectEntity>? projects;
-
-  @override
-  void initState() {
-    widget.registryApi
-        .canUpdateProjects(sessionDto: widget.userController.session!)
-        .then((value) {
-      print(value);
-      if (mounted) {
-        setState(() {
-          projects = value;
-        });
-      }
-    }).onError((error, stackTrace) {
-      print(error);
-      print(stackTrace);
-    });
-    super.initState();
-  }
-
-  @override
   Widget build(BuildContext context) {
+    final user = Provider.of<UserController>(context).user;
+    final projects = useCurrentUserProjects(
+      user,
+      registryApi: registryApi,
+    );
+
     return AppScaffold(
       child: Padding(
         padding: const EdgeInsets.only(
@@ -54,7 +32,7 @@ class _ProjectsPageState extends State<ProjectsPage> {
             Row(
               children: [
                 Text(
-                  "${widget.userController.session!.authenticatedUser.username}'s Projects",
+                  "${user?.displayName}'s Projects",
                   style: const TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 38,

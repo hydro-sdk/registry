@@ -4,7 +4,6 @@ import 'package:registry/widgets/homePage.dart';
 import 'package:registry/widgets/projectDetailsPage.dart';
 import 'package:registry/widgets/unknownPage.dart';
 import 'package:registry/widgets/componentDetailsPage.dart';
-import 'package:registry/widgets/signupPage.dart';
 import 'package:registry/widgets/projectsPage.dart';
 import 'package:registry/widgets/changeNotifier.dart';
 import 'package:registry/util/userController.dart';
@@ -34,18 +33,6 @@ class App extends StatelessWidget {
                 ),
               ),
             );
-          } else if (settings.name == "/signup") {
-            return MaterialPageRoute<void>(
-              settings: RouteSettings(
-                name: settings.name,
-              ),
-              builder: (context) => changeNotifier(
-                userController: userController,
-                child: SignupPage(
-                  registryApi: registryApi,
-                ),
-              ),
-            );
           } else if (settings.name == "/projects") {
             return MaterialPageRoute<void>(
               settings: RouteSettings(
@@ -55,7 +42,6 @@ class App extends StatelessWidget {
                 userController: userController,
                 child: ProjectsPage(
                   registryApi: registryApi,
-                  userController: userController,
                 ),
               ),
             );
@@ -93,7 +79,12 @@ class App extends StatelessWidget {
             }
           }
 
-          return MaterialPageRoute<void>(builder: (context) => UnknownPage());
+          return MaterialPageRoute<void>(
+            builder: (context) => changeNotifier(
+              userController: userController,
+              child: UnknownPage(),
+            ),
+          );
         },
       );
 }

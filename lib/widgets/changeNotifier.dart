@@ -8,9 +8,11 @@ Widget changeNotifier({
 }) =>
     MultiProvider(
       providers: [
-        ChangeNotifierProvider.value(
+        ChangeNotifierProvider<UserController>.value(
           value: userController,
         ),
       ],
-      child: child,
+      child: Builder(
+        builder: (_) => child,
+      ),
     );
