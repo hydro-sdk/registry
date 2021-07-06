@@ -1,14 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:hydro_sdk/registry/dto/componentReadDto.dart';
-import 'package:hydro_sdk/registry/dto/packageReadDto.dart';
-import 'package:hydro_sdk/registry/dto/projectEntity.dart';
-import 'package:hydro_sdk/registry/dto/projectReadDto.dart';
-import 'package:hydro_sdk/registry/dto/releaseChannelReadDto.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hydro_sdk/registry/registryApi.dart';
+import 'package:registry/hooks/useProjectById.dart';
 import 'package:registry/widgets/appScaffold.dart';
-import 'package:registry/widgets/releaseChannelDetails.dart';
 
-class ProjectDetailsPage extends StatefulWidget {
+class ProjectDetailsPage extends HookWidget {
   final RegistryApi registryApi;
   final String projectId;
 
@@ -18,41 +14,30 @@ class ProjectDetailsPage extends StatefulWidget {
   });
 
   @override
-  _ProjectDetailsPageState createState() => _ProjectDetailsPageState();
-}
-
-class _ProjectDetailsPageState extends State<ProjectDetailsPage> {
-  _ProjectDetailsPageState();
-
-  ProjectEntity? projectReadDto;
-
-  @override
-  void initState() {
-    widget.registryApi
-        .getProjectById(projectId: widget.projectId)
-        .then((value) {
-      if (mounted) {
-        setState(() {
-          projectReadDto = value;
-        });
-      }
-    });
-    super.initState();
-  }
-
-  @override
   Widget build(BuildContext context) {
+    final project = useProjectById(
+      projectId,
+      registryApi: registryApi,
+    );
     return AppScaffold(
-      child: projectReadDto == null
+      child: project == null
           ? const Center(child: CircularProgressIndicator())
           : Padding(
               padding: const EdgeInsets.only(
                 left: 30,
                 right: 30,
+                top: 30,
               ),
-              child: ListView(
-                shrinkWrap: true,
-                children: [],
+              child: Row(
+                children: [
+                  Text(
+                    project.name,
+                    style: const TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.w500,
+                        color: Colors.black),
+                  ),
+                ],
               ),
             ),
     );
