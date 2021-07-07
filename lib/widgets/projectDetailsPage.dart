@@ -4,6 +4,7 @@ import 'package:hydro_sdk/registry/registryApi.dart';
 import 'package:registry/hooks/useProjectById.dart';
 import 'package:registry/widgets/appScaffold.dart';
 import 'package:registry/widgets/projectComponentsList.dart';
+import 'package:registry/widgets/showNewComponentDialog.dart';
 
 class ProjectDetailsPage extends HookWidget {
   final RegistryApi registryApi;
@@ -48,7 +49,19 @@ class ProjectDetailsPage extends HookWidget {
                             width: 20,
                           ),
                           TextButton(
-                            onPressed: () {},
+                            onPressed: () async {
+                              final result = await showNewComponentDialog(
+                                context,
+                                projectEntity: project,
+                                registryApi: registryApi,
+                              );
+
+                              result?.maybeWhen(
+                                fromNewComponentDialogAcceptDto: (val) =>
+                                    print(val.name),
+                                orElse: () => null,
+                              );
+                            },
                             child: const Text("New Component"),
                           ),
                         ],

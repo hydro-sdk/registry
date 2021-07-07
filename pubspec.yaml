@@ -39,6 +39,9 @@ dependencies:
     path: "../hydro-sdk"
 
 dev_dependencies:
+  freezed:
+  freezed_annotation:
+  build_runner:
   flutter_test:
     sdk: flutter
 dependency_overrides:
