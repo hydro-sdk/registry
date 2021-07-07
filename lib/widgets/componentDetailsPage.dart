@@ -43,7 +43,7 @@ class _ComponentDetailsPageState extends State<ComponentDetailsPage> {
       }
 
       await widget.registryApi
-          .getAllReleaseChannelsByComponentId(componentId: value?.id??"")
+          .getAllReleaseChannelsByComponentId(componentId: value?.id ?? "")
           .then((value) async {
         await Future<void>.delayed(const Duration(seconds: 1));
         if (mounted) {
