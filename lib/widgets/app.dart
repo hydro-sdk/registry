@@ -47,7 +47,7 @@ class App extends StatelessWidget {
             );
           } else {
             final uri = Uri.parse(settings.name ?? "");
-            if (uri.pathSegments.length == 3 &&
+            if (uri.pathSegments.length == 2 &&
                 uri.pathSegments.first == "component") {
               return MaterialPageRoute<void>(
                 settings: RouteSettings(
@@ -56,8 +56,7 @@ class App extends StatelessWidget {
                 builder: (context) => changeNotifier(
                   userController: userController,
                   child: ComponentDetailsPage(
-                    projectName: uri.pathSegments[1],
-                    componentName: uri.pathSegments.last,
+                    componentId: uri.pathSegments[1],
                     registryApi: registryApi,
                   ),
                 ),

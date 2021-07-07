@@ -160,8 +160,7 @@ class __SearchComponentsResultsInnerState
                                   onChildTap();
                                   pushComponentDetails(
                                     context: context,
-                                    componentName: x.name,
-                                    projectName: x.projectName,
+                                    componentId: x.id,
                                   );
                                 }),
                           )

@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 
 Future<void> pushComponentDetails({
-  required String projectName,
-  required String componentName,
+  required String componentId,
   required BuildContext context,
 }) =>
-    Navigator.pushNamed(context, "/component/${projectName}/${componentName}");
+    Navigator.pushNamed(context, "/component/${componentId}");

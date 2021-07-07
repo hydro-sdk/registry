@@ -1,20 +1,20 @@
 import 'package:flutter/material.dart';
-import 'package:hydro_sdk/registry/dto/componentReadDto.dart';
-import 'package:hydro_sdk/registry/dto/packageReadDto.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hydro_sdk/registry/dto/releaseChannelReadDto.dart';
 import 'package:hydro_sdk/registry/registryApi.dart';
+import 'package:registry/hooks/useAllReleaseChannelsByComponentId.dart';
+import 'package:registry/hooks/useComponentById.dart';
+import 'package:registry/hooks/useProjectById.dart';
 import 'package:registry/widgets/appScaffold.dart';
 import 'package:registry/widgets/releaseChannelDetails.dart';
 
-class ComponentDetailsPage extends StatefulWidget {
+class ComponentDetailsPage extends StatefulHookWidget {
   final RegistryApi registryApi;
-  final String projectName;
-  final String componentName;
+  final String componentId;
 
   ComponentDetailsPage({
     required this.registryApi,
-    required this.projectName,
-    required this.componentName,
+    required this.componentId,
   });
 
   @override
@@ -22,47 +22,27 @@ class ComponentDetailsPage extends StatefulWidget {
 }
 
 class _ComponentDetailsPageState extends State<ComponentDetailsPage> {
-  ComponentReadDto? componentReadDto;
-  List<ReleaseChannelReadDto>? releaseChannelDtos;
-  List<PackageReadDto>? packageReadDtos;
   ReleaseChannelReadDto? selectedReleaseChannel;
 
   @override
-  void initState() {
-    widget.registryApi
-        .getComponentByNameInProjectByName(
-      projectName: widget.projectName,
-      componentName: widget.componentName,
-    )
-        .then((value) async {
-      await Future<void>.delayed(const Duration(seconds: 1));
-      if (mounted) {
-        setState(() {
-          componentReadDto = value;
-        });
-      }
-
-      await widget.registryApi
-          .getAllReleaseChannelsByComponentId(componentId: value?.id ?? "")
-          .then((value) async {
-        await Future<void>.delayed(const Duration(seconds: 1));
-        if (mounted) {
-          setState(() {
-            releaseChannelDtos = value;
-            selectedReleaseChannel = value?.first;
-          });
-        }
-      });
-    });
-
-    ;
-    super.initState();
-  }
-
-  @override
   Widget build(BuildContext context) {
+    final component = useComponentById(
+      widget.componentId,
+      registryApi: widget.registryApi,
+    );
+    final releaseChannels = useReleaseChannelsByComponentId(
+      widget.componentId,
+      registryApi: widget.registryApi,
+    );
+    final project = useProjectById(
+      component?.projectId ?? "",
+      registryApi: widget.registryApi,
+    );
+
     return AppScaffold(
-      child: componentReadDto == null || (releaseChannelDtos?.isEmpty ?? true)
+      child: component == null ||
+              project == null ||
+              (releaseChannels?.isEmpty ?? true)
           ? const Center(child: CircularProgressIndicator())
           : Padding(
               padding: const EdgeInsets.only(
@@ -78,7 +58,7 @@ class _ComponentDetailsPageState extends State<ComponentDetailsPage> {
                     children: [
                       Expanded(
                         child: Text(
-                          componentReadDto?.name ?? "",
+                          component.name,
                           overflow: TextOverflow.ellipsis,
                           style: const TextStyle(
                             fontWeight: FontWeight.bold,
@@ -97,13 +77,13 @@ class _ComponentDetailsPageState extends State<ComponentDetailsPage> {
                         ),
                       ),
                       DropdownButton<ReleaseChannelReadDto>(
-                        items: releaseChannelDtos!
+                        items: releaseChannels!
                             .map((x) => DropdownMenuItem<ReleaseChannelReadDto>(
                                   value: x,
                                   child: Text(x.name),
                                 ))
                             .toList(),
-                        value: selectedReleaseChannel,
+                        value: selectedReleaseChannel ?? releaseChannels.first,
                         onChanged: (value) {
                           if (mounted) {
                             setState(() {
@@ -116,10 +96,12 @@ class _ComponentDetailsPageState extends State<ComponentDetailsPage> {
                   ),
                   ReleaseChannelDetails(
                     registryApi: widget.registryApi,
-                    releaseChannelReadDto: selectedReleaseChannel!,
-                    projectName: widget.projectName,
-                    componentName: widget.componentName,
-                    releaseChannelName: selectedReleaseChannel!.name,
+                    releaseChannelReadDto:
+                        selectedReleaseChannel ?? releaseChannels.first,
+                    projectName: project.name,
+                    componentName: component.name,
+                    releaseChannelName: selectedReleaseChannel?.name ??
+                        releaseChannels.first.name,
                   ),
                   const SizedBox(height: 30),
                 ],
