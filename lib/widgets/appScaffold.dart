@@ -42,11 +42,18 @@ class _AppScaffoldState extends State<AppScaffold> {
               children: [
                 Container(
                   alignment: Alignment.center,
-                  child: Image.asset(
-                    "assets/logo.png",
-                    fit: BoxFit.contain,
-                    width: 45,
-                    height: 45,
+                  child: Material(
+                    type: MaterialType.transparency,
+                    child: InkWell(
+                      onTap: () => Navigator.of(context).pushNamed("/"),
+                      splashColor: const Color(0x75166132),
+                      child: Image.asset(
+                        "assets/logo.png",
+                        fit: BoxFit.contain,
+                        width: 45,
+                        height: 45,
+                      ),
+                    ),
                   ),
                 ),
                 const SizedBox(width: 15),

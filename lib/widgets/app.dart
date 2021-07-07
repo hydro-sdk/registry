@@ -24,8 +24,12 @@ class App extends StatelessWidget {
         ),
         initialRoute: "/",
         onGenerateRoute: (settings) {
+          final uri = Uri.parse(settings.name ?? "");
           if (settings.name == "/") {
             return MaterialPageRoute<void>(
+              settings: RouteSettings(
+                name: uri.toString(),
+              ),
               builder: (context) => changeNotifier(
                 userController: userController,
                 child: HomePage(
@@ -36,7 +40,7 @@ class App extends StatelessWidget {
           } else if (settings.name == "/projects") {
             return MaterialPageRoute<void>(
               settings: RouteSettings(
-                name: settings.name,
+                name: uri.toString(),
               ),
               builder: (context) => changeNotifier(
                 userController: userController,
@@ -46,7 +50,6 @@ class App extends StatelessWidget {
               ),
             );
           } else {
-            final uri = Uri.parse(settings.name ?? "");
             if (uri.pathSegments.length == 2 &&
                 uri.pathSegments.first == "component") {
               return MaterialPageRoute<void>(
