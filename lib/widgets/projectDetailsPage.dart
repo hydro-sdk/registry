@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hydro_sdk/registry/registryApi.dart';
+import 'package:provider/provider.dart';
 import 'package:registry/hooks/useProjectById.dart';
+import 'package:registry/util/userController.dart';
 import 'package:registry/widgets/appScaffold.dart';
 import 'package:registry/widgets/projectComponentsList.dart';
+import 'package:registry/widgets/showCreateComponentDialog.dart';
 import 'package:registry/widgets/showNewComponentDialog.dart';
 
 class ProjectDetailsPage extends HookWidget {
@@ -21,6 +24,9 @@ class ProjectDetailsPage extends HookWidget {
       projectId,
       registryApi: registryApi,
     );
+
+    final userController = Provider.of<UserController>(context);
+
     return AppScaffold(
       child: project == null
           ? const Center(child: CircularProgressIndicator())
@@ -56,9 +62,16 @@ class ProjectDetailsPage extends HookWidget {
                                 registryApi: registryApi,
                               );
 
-                              result?.maybeWhen(
+                              await result?.maybeWhen(
                                 fromNewComponentDialogAcceptDto: (val) =>
-                                    print(val.name),
+                                    showCreateComponentDialog(
+                                  context,
+                                  registryApi: registryApi,
+                                  projectEntity: project,
+                                  name: val.name,
+                                  description: val.description,
+                                  user: userController.user!,
+                                ),
                                 orElse: () => null,
                               );
                             },

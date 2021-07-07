@@ -52,71 +52,69 @@ class _NewComponentDialogState extends State<NewComponentDialog> {
   }
 
   @override
-  Widget build(BuildContext context) {
-    return AlertDialog(
-      title: const Text("New Component"),
-      actions: [
-        TextButton(
-          onPressed: () => Navigator.of(context).pop<NewComponentDialogDto>(
-            const NewComponentDialogDto.fromNewComponentDialogCancelDto(
-              newComponentDialogCancelDto: NewComponentDialogCancelDto(),
+  Widget build(BuildContext context) => AlertDialog(
+        title: const Text("New Component"),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.of(context).pop<NewComponentDialogDto>(
+              const NewComponentDialogDto.fromNewComponentDialogCancelDto(
+                newComponentDialogCancelDto: NewComponentDialogCancelDto(),
+              ),
+            ),
+            child: const Text(
+              "Cancel",
+              textAlign: TextAlign.end,
             ),
           ),
-          child: const Text(
-            "Cancel",
-            textAlign: TextAlign.end,
-          ),
-        ),
-        TextButton(
-          onPressed: () => formatEntityName(nameTextEditingController.text)
-                  .isNotEmpty
-              ? (({
-                  required String name,
-                  required String description,
-                }) =>
-                      Navigator.of(context).pop<NewComponentDialogDto>(
-                        NewComponentDialogDto.fromNewComponentDialogAcceptDto(
-                          newComponentDialogAcceptDto:
-                              NewComponentDialogAcceptDto(
-                            name: name,
-                            description: description,
+          TextButton(
+            onPressed: () => formatEntityName(nameTextEditingController.text)
+                    .isNotEmpty
+                ? (({
+                    required String name,
+                    required String description,
+                  }) =>
+                        Navigator.of(context).pop<NewComponentDialogDto>(
+                          NewComponentDialogDto.fromNewComponentDialogAcceptDto(
+                            newComponentDialogAcceptDto:
+                                NewComponentDialogAcceptDto(
+                              name: name,
+                              description: description,
+                            ),
                           ),
-                        ),
-                      ))(
-                  name: formatEntityName(nameTextEditingController.text),
-                  description: descriptionTextEditingController.text)
-              : null,
-          child: const Text(
-            "Create",
-            textAlign: TextAlign.end,
-          ),
-        )
-      ],
-      content: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          TextField(
-            decoration: const InputDecoration(
-              border: OutlineInputBorder(),
-              labelText: "Name",
+                        ))(
+                    name: formatEntityName(nameTextEditingController.text),
+                    description: descriptionTextEditingController.text)
+                : null,
+            child: const Text(
+              "Create",
+              textAlign: TextAlign.end,
             ),
-            controller: nameTextEditingController,
-          ),
-          Text([
-            widget.projectEntity.name,
-            formatEntityName(nameTextEditingController.text),
-          ].join("/")),
-          TextField(
-            decoration: const InputDecoration(
-              border: OutlineInputBorder(),
-              labelText: "Description",
-            ),
-            controller: descriptionTextEditingController,
           )
         ],
-      ),
-    );
-  }
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            TextField(
+              decoration: const InputDecoration(
+                border: OutlineInputBorder(),
+                labelText: "Name",
+              ),
+              controller: nameTextEditingController,
+            ),
+            Text([
+              widget.projectEntity.name,
+              formatEntityName(nameTextEditingController.text),
+            ].join("/")),
+            TextField(
+              decoration: const InputDecoration(
+                border: OutlineInputBorder(),
+                labelText: "Description",
+              ),
+              controller: descriptionTextEditingController,
+            )
+          ],
+        ),
+      );
 }
 
 @freezed
