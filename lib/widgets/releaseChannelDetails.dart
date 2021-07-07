@@ -4,6 +4,7 @@ import 'package:hydro_sdk/registry/dto/releaseChannelReadDto.dart';
 import 'package:hydro_sdk/registry/registryApi.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:registry/widgets/includePackageSnippet.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class ReleaseChannelDetails extends StatefulWidget {
   final RegistryApi registryApi;
@@ -72,9 +73,7 @@ class _ReleaseChannelDetailsState extends State<ReleaseChannelDetails> {
                     child: MarkdownBody(
                       shrinkWrap: true,
                       selectable: true,
-                      onTapLink: (text, href, title) {
-                        print(href);
-                      },
+                      onTapLink: (text, href, title) => launch(href ?? ""),
                       data: packageReadDto?.readmeMd ?? "",
                     ),
                   ),
