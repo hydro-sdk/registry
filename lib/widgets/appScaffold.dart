@@ -3,6 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:registry/util/userController.dart';
 
+enum ScaffoldMenuItems {
+  projects,
+}
+
 class AppScaffold extends StatefulWidget {
   final Widget child;
   final bool showBackgroundLogoColor;
@@ -58,26 +62,39 @@ class _AppScaffoldState extends State<AppScaffold> {
               children: userController.user == null
                   ? [
                       TextButton(
-                          child: const Text("Signup"),
+                          child: const Text("Sign in with Github"),
                           onPressed: () async {
                             await FirebaseAuth.instance
                                 .signInWithPopup(GithubAuthProvider());
                           }),
-                      TextButton(
-                        child: const Text("Login"),
-                        onPressed: () async {},
-                      ),
                       const SizedBox(width: 10),
                     ]
                   : [
-                      TextButton(
-                        child: const Text("Projects"),
-                        onPressed: () =>
-                            Navigator.pushNamed(context, "/projects"),
-                      ),
-                      TextButton(
-                        child: Text(userController.user?.displayName ?? ""),
-                        onPressed: () async {},
+                      PopupMenuButton(
+                        child:
+                            (userController.user!.photoURL?.isNotEmpty ?? false)
+                                ? CircleAvatar(
+                                    child: Image.network(
+                                        userController.user!.photoURL!),
+                                  )
+                                : null,
+                        icon:
+                            (userController.user!.photoURL?.isNotEmpty ?? false)
+                                ? null
+                                : const Icon(Icons.account_circle),
+                        onSelected: (result) {
+                          switch (result) {
+                            case ScaffoldMenuItems.projects:
+                              Navigator.pushNamed(context, "/projects");
+                              return;
+                          }
+                        },
+                        itemBuilder: (_) => [
+                          const PopupMenuItem(
+                            value: ScaffoldMenuItems.projects,
+                            child: Text("Projects"),
+                          )
+                        ],
                       ),
                       const SizedBox(width: 10),
                     ],
