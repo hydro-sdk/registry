@@ -2,6 +2,7 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hydro_sdk/registry/registryApi.dart';
 import 'package:registry/hooks/useComponentsInProjectById.dart';
+import 'package:registry/widgets/entryCard.dart';
 
 class ProjectComponentsList extends HookWidget {
   final String projectId;
@@ -24,10 +25,15 @@ class ProjectComponentsList extends HookWidget {
 
     return (components?.isNotEmpty ?? false)
         ? Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: components!
-                .map((x) => Column(
-                      children: [Text(x.name)],
-                    ))
+                .map(
+                  (x) => EntryCard(
+                    title: x.name,
+                    subTitle: x.description,
+                    onTap: () {},
+                  ),
+                )
                 .toList(),
           )
         : const Text(
