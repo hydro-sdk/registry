@@ -6,6 +6,7 @@ import 'package:registry/hooks/useCurrentUserProjects.dart';
 import 'package:registry/util/pushProjectDetails.dart';
 import 'package:registry/widgets/appScaffold.dart';
 import 'package:registry/util/userController.dart';
+import 'package:registry/widgets/entryCard.dart';
 
 class ProjectsPage extends HookWidget {
   final RegistryApi registryApi;
@@ -48,29 +49,14 @@ class ProjectsPage extends HookWidget {
                         children: [
                           Row(
                             children: [
-                              SizedBox(
-                                width: MediaQuery.of(context).size.width / 4,
-                                height: 125,
-                                child: ListTile(
-                                  title: Text(
-                                    e.name,
-                                    style: const TextStyle(
-                                      fontSize: 28,
-                                    ),
-                                  ),
-                                  subtitle: Text(
-                                    e.description,
-                                    style: const TextStyle(
-                                      fontSize: 18,
-                                    ),
-                                  ),
-                                  onTap: () => pushProjectDetails(
-                                    projectId: e.id,
-                                    context: context,
-                                  ),
-                                  tileColor: Colors.grey.shade200,
+                              EntryCard(
+                                onTap: () => pushProjectDetails(
+                                  projectId: e.id,
+                                  context: context,
                                 ),
-                              ),
+                                title: e.name,
+                                subTitle: e.description,
+                              )
                             ],
                           ),
                         ],
