@@ -20,6 +20,8 @@ analyzer:
     prefer_spread_collections: ignore
     sort_child_properties_last: ignore
     unnecessary_brace_in_string_interps: ignore
+ignore:
+  - lib/**/*.freezed.dart
 
 linter:
   rules:
