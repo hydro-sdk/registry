@@ -1,5 +1,6 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/widgets.dart';
 import 'package:hydro_sdk/registry/dto/projectEntity.dart';
 import 'package:hydro_sdk/registry/registryApi.dart';
@@ -24,22 +25,28 @@ class NewComponentDialog extends StatefulWidget {
 }
 
 class _NewComponentDialogState extends State<NewComponentDialog> {
-  late final TextEditingController textEditingController;
+  late final TextEditingController nameTextEditingController;
+  late final TextEditingController descriptionTextEditingController;
 
-  void _textEditingControllerOnChanged() => setState(() => null);
+  void _nameTextEditingControllerOnChanged() => setState(() => null);
 
   @override
   void initState() {
-    textEditingController = TextEditingController();
-    textEditingController.addListener(_textEditingControllerOnChanged);
+    nameTextEditingController = TextEditingController();
+    nameTextEditingController.addListener(_nameTextEditingControllerOnChanged);
+
+    descriptionTextEditingController = TextEditingController();
 
     super.initState();
   }
 
   @override
   void dispose() {
-    textEditingController.removeListener(_textEditingControllerOnChanged);
-    textEditingController.dispose();
+    nameTextEditingController
+        .removeListener(_nameTextEditingControllerOnChanged);
+    nameTextEditingController.dispose();
+
+    descriptionTextEditingController.dispose();
 
     super.dispose();
   }
@@ -61,14 +68,24 @@ class _NewComponentDialogState extends State<NewComponentDialog> {
           ),
         ),
         TextButton(
-          onPressed: () => ((String text) =>
-              Navigator.of(context).pop<NewComponentDialogDto>(
-                NewComponentDialogDto.fromNewComponentDialogAcceptDto(
-                  newComponentDialogAcceptDto: NewComponentDialogAcceptDto(
-                    name: text,
-                  ),
-                ),
-              ))(formatEntityName(textEditingController.text)),
+          onPressed: () => formatEntityName(nameTextEditingController.text)
+                  .isNotEmpty
+              ? (({
+                  required String name,
+                  required String description,
+                }) =>
+                      Navigator.of(context).pop<NewComponentDialogDto>(
+                        NewComponentDialogDto.fromNewComponentDialogAcceptDto(
+                          newComponentDialogAcceptDto:
+                              NewComponentDialogAcceptDto(
+                            name: name,
+                            description: description,
+                          ),
+                        ),
+                      ))(
+                  name: formatEntityName(nameTextEditingController.text),
+                  description: descriptionTextEditingController.text)
+              : null,
           child: const Text(
             "Create",
             textAlign: TextAlign.end,
@@ -79,12 +96,23 @@ class _NewComponentDialogState extends State<NewComponentDialog> {
         mainAxisSize: MainAxisSize.min,
         children: [
           TextField(
-            controller: textEditingController,
+            decoration: const InputDecoration(
+              border: OutlineInputBorder(),
+              labelText: "Name",
+            ),
+            controller: nameTextEditingController,
           ),
           Text([
             widget.projectEntity.name,
-            formatEntityName(textEditingController.text),
+            formatEntityName(nameTextEditingController.text),
           ].join("/")),
+          TextField(
+            decoration: const InputDecoration(
+              border: OutlineInputBorder(),
+              labelText: "Description",
+            ),
+            controller: descriptionTextEditingController,
+          )
         ],
       ),
     );
@@ -97,6 +125,7 @@ class NewComponentDialogAcceptDto with _$NewComponentDialogAcceptDto {
 
   const factory NewComponentDialogAcceptDto({
     required String name,
+    required String description,
   }) = _$NewComponentDialogAcceptDtoCtor;
 }
 

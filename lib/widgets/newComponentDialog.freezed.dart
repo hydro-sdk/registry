@@ -16,9 +16,11 @@ final _privateConstructorUsedError = UnsupportedError(
 class _$NewComponentDialogAcceptDtoTearOff {
   const _$NewComponentDialogAcceptDtoTearOff();
 
-  _$NewComponentDialogAcceptDtoCtor call({required String name}) {
+  _$NewComponentDialogAcceptDtoCtor call(
+      {required String name, required String description}) {
     return _$NewComponentDialogAcceptDtoCtor(
       name: name,
+      description: description,
     );
   }
 }
@@ -29,6 +31,7 @@ const $NewComponentDialogAcceptDto = _$NewComponentDialogAcceptDtoTearOff();
 /// @nodoc
 mixin _$NewComponentDialogAcceptDto {
   String get name => throw _privateConstructorUsedError;
+  String get description => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $NewComponentDialogAcceptDtoCopyWith<NewComponentDialogAcceptDto>
@@ -41,7 +44,7 @@ abstract class $NewComponentDialogAcceptDtoCopyWith<$Res> {
           NewComponentDialogAcceptDto value,
           $Res Function(NewComponentDialogAcceptDto) then) =
       _$NewComponentDialogAcceptDtoCopyWithImpl<$Res>;
-  $Res call({String name});
+  $Res call({String name, String description});
 }
 
 /// @nodoc
@@ -56,11 +59,16 @@ class _$NewComponentDialogAcceptDtoCopyWithImpl<$Res>
   @override
   $Res call({
     Object? name = freezed,
+    Object? description = freezed,
   }) {
     return _then(_value.copyWith(
       name: name == freezed
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
+              as String,
+      description: description == freezed
+          ? _value.description
+          : description // ignore: cast_nullable_to_non_nullable
               as String,
     ));
   }
@@ -74,7 +82,7 @@ abstract class _$$NewComponentDialogAcceptDtoCtorCopyWith<$Res>
           $Res Function(_$NewComponentDialogAcceptDtoCtor) then) =
       __$$NewComponentDialogAcceptDtoCtorCopyWithImpl<$Res>;
   @override
-  $Res call({String name});
+  $Res call({String name, String description});
 }
 
 /// @nodoc
@@ -93,11 +101,16 @@ class __$$NewComponentDialogAcceptDtoCtorCopyWithImpl<$Res>
   @override
   $Res call({
     Object? name = freezed,
+    Object? description = freezed,
   }) {
     return _then(_$NewComponentDialogAcceptDtoCtor(
       name: name == freezed
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
+              as String,
+      description: description == freezed
+          ? _value.description
+          : description // ignore: cast_nullable_to_non_nullable
               as String,
     ));
   }
@@ -106,15 +119,28 @@ class __$$NewComponentDialogAcceptDtoCtorCopyWithImpl<$Res>
 /// @nodoc
 
 class _$_$NewComponentDialogAcceptDtoCtor
-    extends _$NewComponentDialogAcceptDtoCtor {
-  const _$_$NewComponentDialogAcceptDtoCtor({required this.name}) : super._();
+    extends _$NewComponentDialogAcceptDtoCtor with DiagnosticableTreeMixin {
+  const _$_$NewComponentDialogAcceptDtoCtor(
+      {required this.name, required this.description})
+      : super._();
 
   @override
   final String name;
+  @override
+  final String description;
 
   @override
-  String toString() {
-    return 'NewComponentDialogAcceptDto(name: $name)';
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
+    return 'NewComponentDialogAcceptDto(name: $name, description: $description)';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties
+      ..add(DiagnosticsProperty('type', 'NewComponentDialogAcceptDto'))
+      ..add(DiagnosticsProperty('name', name))
+      ..add(DiagnosticsProperty('description', description));
   }
 
   @override
@@ -122,12 +148,17 @@ class _$_$NewComponentDialogAcceptDtoCtor
     return identical(this, other) ||
         (other is _$NewComponentDialogAcceptDtoCtor &&
             (identical(other.name, name) ||
-                const DeepCollectionEquality().equals(other.name, name)));
+                const DeepCollectionEquality().equals(other.name, name)) &&
+            (identical(other.description, description) ||
+                const DeepCollectionEquality()
+                    .equals(other.description, description)));
   }
 
   @override
   int get hashCode =>
-      runtimeType.hashCode ^ const DeepCollectionEquality().hash(name);
+      runtimeType.hashCode ^
+      const DeepCollectionEquality().hash(name) ^
+      const DeepCollectionEquality().hash(description);
 
   @JsonKey(ignore: true)
   @override
@@ -138,12 +169,15 @@ class _$_$NewComponentDialogAcceptDtoCtor
 
 abstract class _$NewComponentDialogAcceptDtoCtor
     extends NewComponentDialogAcceptDto {
-  const factory _$NewComponentDialogAcceptDtoCtor({required String name}) =
-      _$_$NewComponentDialogAcceptDtoCtor;
+  const factory _$NewComponentDialogAcceptDtoCtor(
+      {required String name,
+      required String description}) = _$_$NewComponentDialogAcceptDtoCtor;
   const _$NewComponentDialogAcceptDtoCtor._() : super._();
 
   @override
   String get name => throw _privateConstructorUsedError;
+  @override
+  String get description => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
   _$$NewComponentDialogAcceptDtoCtorCopyWith<_$NewComponentDialogAcceptDtoCtor>
@@ -208,12 +242,18 @@ class __$$NewComponentDialogCancelDtoCtorCopyWithImpl<$Res>
 /// @nodoc
 
 class _$_$NewComponentDialogCancelDtoCtor
-    extends _$NewComponentDialogCancelDtoCtor {
+    extends _$NewComponentDialogCancelDtoCtor with DiagnosticableTreeMixin {
   const _$_$NewComponentDialogCancelDtoCtor() : super._();
 
   @override
-  String toString() {
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
     return 'NewComponentDialogCancelDto()';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties..add(DiagnosticsProperty('type', 'NewComponentDialogCancelDto'));
   }
 
   @override
@@ -374,7 +414,8 @@ class __$$NewComponentDialogDtoFromNewComponentDialogAcceptDtoCopyWithImpl<$Res>
 /// @nodoc
 
 class _$_$NewComponentDialogDtoFromNewComponentDialogAcceptDto
-    extends _$NewComponentDialogDtoFromNewComponentDialogAcceptDto {
+    extends _$NewComponentDialogDtoFromNewComponentDialogAcceptDto
+    with DiagnosticableTreeMixin {
   const _$_$NewComponentDialogDtoFromNewComponentDialogAcceptDto(
       {required this.newComponentDialogAcceptDto})
       : super._();
@@ -383,8 +424,18 @@ class _$_$NewComponentDialogDtoFromNewComponentDialogAcceptDto
   final NewComponentDialogAcceptDto newComponentDialogAcceptDto;
 
   @override
-  String toString() {
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
     return 'NewComponentDialogDto.fromNewComponentDialogAcceptDto(newComponentDialogAcceptDto: $newComponentDialogAcceptDto)';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties
+      ..add(DiagnosticsProperty(
+          'type', 'NewComponentDialogDto.fromNewComponentDialogAcceptDto'))
+      ..add(DiagnosticsProperty(
+          'newComponentDialogAcceptDto', newComponentDialogAcceptDto));
   }
 
   @override
@@ -542,7 +593,8 @@ class __$$NewComponentDialogDtoFromNewComponentDialogCancelDtoCopyWithImpl<$Res>
 /// @nodoc
 
 class _$_$NewComponentDialogDtoFromNewComponentDialogCancelDto
-    extends _$NewComponentDialogDtoFromNewComponentDialogCancelDto {
+    extends _$NewComponentDialogDtoFromNewComponentDialogCancelDto
+    with DiagnosticableTreeMixin {
   const _$_$NewComponentDialogDtoFromNewComponentDialogCancelDto(
       {required this.newComponentDialogCancelDto})
       : super._();
@@ -551,8 +603,18 @@ class _$_$NewComponentDialogDtoFromNewComponentDialogCancelDto
   final NewComponentDialogCancelDto newComponentDialogCancelDto;
 
   @override
-  String toString() {
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
     return 'NewComponentDialogDto.fromNewComponentDialogCancelDto(newComponentDialogCancelDto: $newComponentDialogCancelDto)';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties
+      ..add(DiagnosticsProperty(
+          'type', 'NewComponentDialogDto.fromNewComponentDialogCancelDto'))
+      ..add(DiagnosticsProperty(
+          'newComponentDialogCancelDto', newComponentDialogCancelDto));
   }
 
   @override
