@@ -1,7 +1,8 @@
-import 'package:clipboard/clipboard.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+
+import 'package:clipboard/clipboard.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:hydro_sdk/registry/dto/createComponentDto.dart';
 import 'package:hydro_sdk/registry/dto/createComponentResponseDto.dart';
 import 'package:hydro_sdk/registry/dto/projectEntity.dart';

@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
+
 import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:provider/provider.dart';
 import 'package:hydro_sdk/registry/registryApi.dart';
+import 'package:provider/provider.dart';
+
 import 'package:registry/hooks/useCurrentUserProjects.dart';
 import 'package:registry/util/pushProjectDetails.dart';
-import 'package:registry/widgets/appScaffold.dart';
 import 'package:registry/util/userController.dart';
+import 'package:registry/widgets/appScaffold.dart';
 import 'package:registry/widgets/entryCard.dart';
 import 'package:registry/widgets/showCreateProjectDialog.dart';
 import 'package:registry/widgets/showNewProjectDialog.dart';

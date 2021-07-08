@@ -1,6 +1,8 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:hydro_sdk/registry/registryApi.dart';
+
 import 'package:registry/widgets/createProjectDialog.dart';
 
 Future<void> showCreateProjectDialog(

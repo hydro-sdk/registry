@@ -1,8 +1,10 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:flutter/foundation.dart';
 import 'package:hydro_sdk/registry/registryApi.dart';
+
 import 'package:registry/util/formatEntityName.dart';
 
 part 'newProjectDialog.freezed.dart';

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:registry/util/userController.dart';
+
 import 'package:provider/provider.dart';
+
+import 'package:registry/util/userController.dart';
 
 Widget changeNotifier({
   required UserController userController,

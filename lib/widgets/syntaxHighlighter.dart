@@ -1,5 +1,7 @@
 //https://gist.github.com/X-Wei/7370ec7823f9be40a91feb127627586d
+
 import 'package:flutter/material.dart';
+
 import 'package:flutter_markdown/flutter_markdown.dart' show SyntaxHighlighter;
 import 'package:string_scanner/string_scanner.dart';
 

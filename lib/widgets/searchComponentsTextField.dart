@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+
 import 'package:hydro_sdk/registry/registryApi.dart';
+import 'package:provider/provider.dart';
+
 import 'package:registry/widgets/searchComponentsResults.dart';
 import 'package:registry/widgets/textSearchController.dart';
 

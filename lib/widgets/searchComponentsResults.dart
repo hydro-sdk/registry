@@ -1,11 +1,13 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+
 import 'package:hydro_sdk/registry/dto/componentSearchDto.dart';
 import 'package:hydro_sdk/registry/registryApi.dart';
 import 'package:provider/provider.dart';
-import 'package:registry/widgets/textSearchController.dart';
+
 import 'package:registry/util/pushComponentDetails.dart';
+import 'package:registry/widgets/textSearchController.dart';
 
 class SearchComponentsResults extends StatelessWidget {
   final RegistryApi registryApi;

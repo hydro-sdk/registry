@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
+
 import 'package:hydro_sdk/registry/registryApi.dart';
+
+import 'package:registry/util/userController.dart';
+import 'package:registry/widgets/changeNotifier.dart';
+import 'package:registry/widgets/componentDetailsPage.dart';
 import 'package:registry/widgets/homePage.dart';
 import 'package:registry/widgets/projectDetailsPage.dart';
-import 'package:registry/widgets/unknownPage.dart';
-import 'package:registry/widgets/componentDetailsPage.dart';
 import 'package:registry/widgets/projectsPage.dart';
-import 'package:registry/widgets/changeNotifier.dart';
-import 'package:registry/util/userController.dart';
+import 'package:registry/widgets/unknownPage.dart';
 
 class App extends StatelessWidget {
   final RegistryApi registryApi;

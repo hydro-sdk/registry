@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+
 import 'package:clipboard/clipboard.dart';
 import 'package:hydro_sdk/registry/dto/packageReadDto.dart';
+
 import 'package:registry/widgets/syntaxHighlighter.dart';
 
 class IncludePackageSnippet extends StatelessWidget {

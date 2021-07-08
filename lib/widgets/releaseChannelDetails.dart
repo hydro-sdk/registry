@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+
+import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:hydro_sdk/registry/dto/packageReadDto.dart';
 import 'package:hydro_sdk/registry/dto/releaseChannelReadDto.dart';
 import 'package:hydro_sdk/registry/registryApi.dart';
-import 'package:flutter_markdown/flutter_markdown.dart';
-import 'package:registry/widgets/includePackageSnippet.dart';
 import 'package:url_launcher/url_launcher.dart';
+
+import 'package:registry/widgets/includePackageSnippet.dart';
 
 class ReleaseChannelDetails extends StatefulWidget {
   final RegistryApi registryApi;
