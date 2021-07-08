@@ -49,7 +49,7 @@ jobs:
       working-directory: registry
 
     - name: Flutter Format
-      run: flutter format lib test --set-exit-if-changed
+      run: flutter format lib --set-exit-if-changed
       working-directory: registry
 
     - name: Sort Dart Imports
