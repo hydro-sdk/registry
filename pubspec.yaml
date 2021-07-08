@@ -36,8 +36,10 @@ dependencies:
   firebase_auth:
   flutter_hooks:
   url_launcher:
-  hydro_sdk:
-    path: "../hydro-sdk"
+  hydro_sdk: 
+    git: 
+      url: git://github.com/hydro-sdk/hydro-sdk.git
+      ref: 0.0.1-nightly.269
 
 dev_dependencies:
   freezed:
