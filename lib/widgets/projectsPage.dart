@@ -7,8 +7,10 @@ import 'package:registry/util/pushProjectDetails.dart';
 import 'package:registry/widgets/appScaffold.dart';
 import 'package:registry/util/userController.dart';
 import 'package:registry/widgets/entryCard.dart';
+import 'package:registry/widgets/showCreateProjectDialog.dart';
+import 'package:registry/widgets/showNewProjectDialog.dart';
 
-class ProjectsPage extends HookWidget {
+class ProjectsPage extends StatefulHookWidget {
   final RegistryApi registryApi;
 
   const ProjectsPage({
@@ -16,11 +18,33 @@ class ProjectsPage extends HookWidget {
   });
 
   @override
+  _ProjectsPageState createState() => _ProjectsPageState();
+}
+
+class _ProjectsPageState extends State<ProjectsPage> {
+  bool hideProjectList = false;
+
+  void refreshProjectList() {
+    if (mounted) {
+      setState(() {
+        hideProjectList = true;
+      });
+    }
+    Future<void>.delayed(const Duration(milliseconds: 500)).then((_) {
+      if (mounted) {
+        setState(() {
+          hideProjectList = false;
+        });
+      }
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
     final user = Provider.of<UserController>(context).user;
     final projects = useCurrentUserProjects(
-      user,
-      registryApi: registryApi,
+      hideProjectList ? null : user,
+      registryApi: widget.registryApi,
     );
 
     return AppScaffold(
@@ -39,6 +63,37 @@ class ProjectsPage extends HookWidget {
                     fontSize: 38,
                   ),
                 ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    const SizedBox(
+                      width: 20,
+                    ),
+                    TextButton(
+                      onPressed: () async {
+                        final result = await showNewProjectDialog(
+                          context,
+                          registryApi: widget.registryApi,
+                        );
+
+                        await result?.maybeWhen(
+                          fromNewProjectDialogAcceptDto: (val) =>
+                              showCreateProjectDialog(
+                            context,
+                            registryApi: widget.registryApi,
+                            name: val.name,
+                            description: val.description,
+                            user: user!,
+                          ),
+                          orElse: () => null,
+                        );
+
+                        refreshProjectList();
+                      },
+                      child: const Text("New Project"),
+                    ),
+                  ],
+                ),
               ],
             ),
             const SizedBox(height: 25),
@@ -49,14 +104,19 @@ class ProjectsPage extends HookWidget {
                         children: [
                           Row(
                             children: [
-                              EntryCard(
-                                onTap: () => pushProjectDetails(
-                                  projectId: e.id,
-                                  context: context,
+                              Padding(
+                                padding: const EdgeInsets.only(
+                                  bottom: 10,
                                 ),
-                                title: e.name,
-                                subTitle: e.description,
-                              )
+                                child: EntryCard(
+                                  onTap: () => pushProjectDetails(
+                                    projectId: e.id,
+                                    context: context,
+                                  ),
+                                  title: e.name,
+                                  subTitle: e.description,
+                                ),
+                              ),
                             ],
                           ),
                         ],
@@ -73,7 +133,9 @@ class ProjectsPage extends HookWidget {
                           ),
                         )
                       ]
-                    : [const CircularProgressIndicator()],
+                    : [
+                        const CircularProgressIndicator(),
+                      ],
           ],
         ),
       ),
