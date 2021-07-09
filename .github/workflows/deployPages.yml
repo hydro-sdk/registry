@@ -58,3 +58,4 @@ jobs:
       with:
         github_token: ${{secrets.WAVEFORM_BOT_PAT}}
         publish_dir: ./registry/build/web
+        cname: registry.hydro-sdk.io
