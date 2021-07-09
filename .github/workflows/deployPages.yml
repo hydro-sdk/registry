@@ -50,7 +50,7 @@ jobs:
       working-directory: registry
 
     - name: Build
-      run: export REGISTRY_TEST_SCHEME=${{ secrets.REGISTRY_TEST_SCHEME }} REGISTRY_TEST_HOST=${{ secrets.REGISTRY_TEST_HOST }}; flutter build web -t lib/main_prod.dart
+      run: flutter build web -t lib/main_prod.dart --dart-define REGISTRY_TEST_SCHEME=${{ secrets.REGISTRY_TEST_SCHEME }} --dart-define REGISTRY_TEST_HOST=${{ secrets.REGISTRY_TEST_HOST }}
       working-directory: registry
     
     - name: Deploy
