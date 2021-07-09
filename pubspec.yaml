@@ -36,6 +36,7 @@ dependencies:
   firebase_auth:
   flutter_hooks:
   url_launcher:
+  js:
   hydro_sdk: 
     git: 
       url: git://github.com/hydro-sdk/hydro-sdk.git
