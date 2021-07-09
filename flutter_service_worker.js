@@ -14,11 +14,11 @@ const RESOURCES = {
 "assets/assets/hero-bg-static2.svg": "a19f900043ab0d0fe5af9e8d0bec4255",
 "assets/packages/cupertino_icons/assets/CupertinoIcons.ttf": "6d342eb68f170c97609e9da345464e5e",
 "assets/fonts/MaterialIcons-Regular.otf": "1288c9e28052e028aba623321f7826ac",
-"main.dart.js": "1a2eb68862796d15b4235cca7af00af9",
+"main.dart.js": "ef8d961908f8e4a01b40cc5a404387c9",
 "version.json": "c5e144404b35fdcb93185b3c494a303c",
 "favicon.png": "5dcef449791fa27946b3d35ad8803796",
-"index.html": "c031dd638fabd1a74075f9a2123632bb",
-"/": "c031dd638fabd1a74075f9a2123632bb",
+"index.html": "d6f2a7b25eb9b16d8087f02691f4ac84",
+"/": "d6f2a7b25eb9b16d8087f02691f4ac84",
 "manifest.json": "10639885d74ce2c2c8d5163d840d4515"
 };
 
