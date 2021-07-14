@@ -37,7 +37,10 @@ class __AllReleaseChannelsByComponentIdHookState extends HookState<
     )
         .then((value) {
       setState(() {
-        releaseChannels = value;
+        releaseChannels = value.maybeWhen(
+          success: (val) => val.result,
+          orElse: () => null,
+        );
       });
     });
   }

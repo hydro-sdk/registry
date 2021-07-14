@@ -48,7 +48,11 @@ class _CreateComponentDialiogState extends State<CreateComponentDialiog> {
               )
               .then(
                 (value) => mounted
-                    ? setState(() => createComponentResponseDto = value)
+                    ? setState(
+                        () => createComponentResponseDto = value.maybeWhen(
+                              success: (val) => val.result,
+                              orElse: () => null,
+                            ))
                     : null,
               ),
         );

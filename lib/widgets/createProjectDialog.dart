@@ -45,7 +45,10 @@ class _CreateProjectDialogState extends State<CreateProjectDialog> {
               )
               .then(
                 (value) => mounted
-                    ? setState(() => createProjectResponse = value)
+                    ? setState(() => createProjectResponse = value.maybeWhen(
+                          success: (val) => val.result,
+                          orElse: () => null,
+                        ))
                     : null,
               ),
         );

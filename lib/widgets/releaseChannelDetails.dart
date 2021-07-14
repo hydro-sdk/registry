@@ -39,7 +39,10 @@ class _ReleaseChannelDetailsState extends State<ReleaseChannelDetails> {
       await Future<void>.delayed(const Duration(seconds: 1));
       if (mounted) {
         setState(() {
-          packageReadDto = value;
+          packageReadDto = value.maybeWhen(
+            success: (val) => val.result,
+            orElse: () => null,
+          );
         });
       }
     });

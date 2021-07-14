@@ -21,11 +21,16 @@ class UserController extends ChangeNotifier {
       _user = event;
 
       if (_user != null) {
-        final provisionResponse = await registryApi.provisionUser(
+        final provisionResponse = (await registryApi.provisionUser(
           sessionDto: SessionDto(authToken: await _user?.getIdToken() ?? ""),
+        ))
+            .maybeWhen(
+          success: (val) => val.result,
+          orElse: () => null,
         );
+        ;
 
-        if (!provisionResponse) {
+        if (provisionResponse == null || !provisionResponse) {
           print("Failed to provision ${user?.displayName}");
         }
       }

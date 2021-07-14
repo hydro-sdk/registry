@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 
 import 'package:hydro_sdk/registry/dto/componentSearchDto.dart';
+import 'package:hydro_sdk/registry/dto/searchComponentsResult.dart';
 import 'package:hydro_sdk/registry/registryApi.dart';
 import 'package:provider/provider.dart';
 
@@ -61,7 +62,7 @@ class __SearchComponentsResultsInnerState
     required this.onChildTap,
   });
 
-  StreamSubscription<List<ComponentSearchDto>?>? searchRequest;
+  StreamSubscription<SearchComponentsResult>? searchRequest;
   List<ComponentSearchDto>? searchResults;
   bool searchInProgress = false;
   Timer? searchTimer;
@@ -127,9 +128,13 @@ class __SearchComponentsResultsInnerState
               .listen((
             event,
           ) {
+            final result = event.maybeWhen(
+              success: (val) => val.result,
+              orElse: () => null,
+            );
             if (mounted) {
               setState(() {
-                searchResults = event!.isNotEmpty ? event : null;
+                searchResults = (result?.isNotEmpty ?? false) ? result : null;
                 searchInProgress = false;
               });
             }

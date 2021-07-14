@@ -35,7 +35,10 @@ class _ComponentByIdHookState
     )
         .then((value) {
       setState(() {
-        component = value;
+        component = value.maybeWhen(
+          success: (val) => val.result,
+          orElse: () => null,
+        );
       });
     });
   }

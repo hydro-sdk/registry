@@ -34,7 +34,10 @@ class _ProjectByIdHookState
     )
         .then((value) {
       setState(() {
-        project = value;
+        project = value.maybeWhen(
+          success: (val) => val.result,
+          orElse: () => null,
+        );
       });
     });
   }

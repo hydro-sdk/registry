@@ -10,31 +10,26 @@ import 'package:registry/firebase.dart';
 import 'package:registry/util/userController.dart';
 import 'package:registry/widgets/app.dart';
 
-final registryTestHost = const String.fromEnvironment("REGISTRY_TEST_HOST");
-final registryTestPort =
-    int.tryParse(const String.fromEnvironment("REGISTRY_TEST_PORT"));
-final registryTestScheme = const String.fromEnvironment("REGISTRY_TEST_SCHEME");
-
 Future<void> main() async {
   initializeApp(jsify({
-    "apiKey": "AIzaSyCpwINU5tsSZ_QRzcHRAuhj-QsiCPTEiSY",
-    "authDomain": "hydro-reservoir-staging.firebaseapp.com",
-    "projectId": "hydro-reservoir-staging",
-    "storageBucket": "hydro-reservoir-staging.appspot.com",
-    "messagingSenderId": "314512543852",
-    "appId": "1:314512543852:web:99fdf42edf468fccb10849",
-    "measurementId": "G-YFTHEJGBPM"
+    "apiKey": "AIzaSyCgydlG1jJdCGWZmUxCUq3VPVZRRh-KvxI",
+    "authDomain": "hydro-registry.firebaseapp.com",
+    "projectId": "hydro-registry",
+    "storageBucket": "hydro-registry.appspot.com",
+    "messagingSenderId": "406676884567",
+    "appId": "1:406676884567:web:3aea62755cc3c02e25a712",
+    "measurementId": "G-SE5BCYJ57L"
   }));
   analytics();
 
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
 
-  final registryApi = RegistryApi(
-    scheme: registryTestScheme,
-    host: registryTestHost,
-    port: registryTestPort,
+  final registryApi = const RegistryApi(
+    scheme: "https",
+    host: "api.registry.hydro-sdk.io",
   );
+
   final userController = UserController(
     registryApi: registryApi,
   );
