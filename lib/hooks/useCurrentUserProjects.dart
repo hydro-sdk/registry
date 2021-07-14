@@ -41,9 +41,9 @@ class _CurrentUserProjectsHookState
           print(value);
           setState(() {
             projects = value.maybeWhen(
-          success: (val) => val.result,
-          orElse: () => null,
-        );
+              success: (val) => val.result,
+              orElse: () => null,
+            );
           });
         }).onError((error, stackTrace) {
           print(error);

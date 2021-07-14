@@ -25,11 +25,8 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
 
-  final registryApi = const RegistryApi(
-    scheme: "https",
-    host: "localhost",
-    port: 5000
-  );
+  final registryApi =
+      const RegistryApi(scheme: "https", host: "localhost", port: 5000);
   final userController = UserController(
     registryApi: registryApi,
   );
